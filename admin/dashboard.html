@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — MakeYourWeb</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{
+      --bg:#060912;--bg2:#080d1a;--bg3:#0b1020;
+      --acc:#6c63ff;--acc2:#ff6584;--acc3:#43e97b;--gold:#f5c842;
+      --glass:rgba(255,255,255,.035);
+      --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+      --text:#e8eaf6;--muted:#6b7394;
+      --fh:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+      --r:12px;--r2:20px;--ease:cubic-bezier(.4,0,.2,1);
+      --spring:cubic-bezier(.34,1.56,.64,1);
+      --sidebar:260px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--fb);font-weight:300;
+      min-height:100vh;overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{text-decoration:none;color:inherit;}
+    ::-webkit-scrollbar{width:4px;}
+    ::-webkit-scrollbar-track{background:var(--bg);}
+    ::-webkit-scrollbar-thumb{background:var(--acc);border-radius:4px;}
+
+    /* ── LAYOUT ── */
+    .adm-layout{display:flex;min-height:100vh;}
+
+    /* ── SIDEBAR ── */
+    .sidebar{
+      width:var(--sidebar);flex-shrink:0;
+      background:rgba(6,9,18,.97);border-right:1px solid var(--border);
+      display:flex;flex-direction:column;
+      position:fixed;top:0;left:0;bottom:0;z-index:100;
+      transition:transform .35s var(--ease);
+    }
+    .sb-logo{
+      padding:1.75rem 1.5rem 1.5rem;
+      border-bottom:1px solid var(--border);
+    }
+    .sb-logo a{
+      font-family:var(--fh);font-size:1.1rem;font-weight:800;
+      letter-spacing:-.02em;color:var(--text);
+    }
+    .sb-logo a span{color:var(--acc);}
+    .sb-logo a em{font-style:normal;color:var(--acc2);font-size:.9em;}
+    .sb-badge{
+      display:inline-flex;align-items:center;gap:.35rem;
+      font-size:.62rem;font-weight:600;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--muted);
+      background:rgba(255,255,255,.04);border:1px solid var(--border);
+      padding:.25rem .75rem;border-radius:100px;margin-top:.5rem;
+    }
+    .sb-badge i{color:var(--acc3);font-size:.5rem;}
+
+    .sb-nav{padding:1.25rem .75rem;flex:1;overflow-y:auto;}
+    .sb-section-label{
+      font-size:.62rem;font-weight:700;text-transform:uppercase;
+      letter-spacing:.15em;color:var(--muted);
+      padding:.25rem .75rem;margin-bottom:.4rem;margin-top:1rem;
+    }
+    .sb-section-label:first-child{margin-top:0;}
+    .sb-link{
+      display:flex;align-items:center;gap:.75rem;
+      padding:.65rem .85rem;border-radius:var(--r);
+      font-size:.88rem;color:var(--muted);
+      transition:background .2s,color .2s;cursor:pointer;
+      border:none;background:none;width:100%;text-align:left;
+    }
+    .sb-link i{width:18px;text-align:center;font-size:.9rem;}
+    .sb-link:hover{background:rgba(255,255,255,.05);color:var(--text);}
+    .sb-link.active{
+      background:rgba(108,99,255,.12);color:var(--text);
+      border:1px solid rgba(108,99,255,.2);
+    }
+    .sb-link.active i{color:var(--acc);}
+
+    .sb-footer{
+      padding:1.25rem 1rem;border-top:1px solid var(--border);
+    }
+    .sb-user{
+      display:flex;align-items:center;gap:.75rem;
+      padding:.65rem .75rem;border-radius:var(--r);
+      background:rgba(255,255,255,.03);border:1px solid var(--border);
+    }
+    .sb-avatar{
+      width:34px;height:34px;border-radius:50%;
+      background:linear-gradient(135deg,#6c63ff,#a855f7);
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--fh);font-weight:800;font-size:.8rem;
+      flex-shrink:0;
+    }
+    .sb-user-info strong{display:block;font-size:.82rem;font-weight:600;color:var(--text);}
+    .sb-user-info span{font-size:.72rem;color:var(--muted);}
+    .sb-logout{
+      margin-left:auto;background:none;border:none;
+      color:var(--muted);cursor:pointer;font-size:.85rem;
+      padding:.2rem;transition:color .2s;
+    }
+    .sb-logout:hover{color:var(--acc2);}
+
+    /* Mobile sidebar toggle */
+    .sb-toggle{
+      display:none;position:fixed;top:1rem;left:1rem;z-index:200;
+      background:rgba(6,9,18,.9);border:1px solid var(--border);
+      color:var(--text);border-radius:var(--r);
+      width:40px;height:40px;
+      align-items:center;justify-content:center;
+      cursor:pointer;backdrop-filter:blur(12px);
+    }
+    .sb-overlay{
+      display:none;position:fixed;inset:0;z-index:99;
+      background:rgba(0,0,0,.5);backdrop-filter:blur(4px);
+    }
+
+    /* ── MAIN ── */
+    .adm-main{
+      margin-left:var(--sidebar);flex:1;
+      min-height:100vh;padding:2rem 2.5rem;
+    }
+
+    /* ── TOP BAR ── */
+    .adm-topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:2rem;padding-bottom:1.5rem;
+      border-bottom:1px solid var(--border);
+    }
+    .adm-page-title h2{
+      font-family:var(--fh);font-size:1.6rem;font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .adm-page-title p{font-size:.85rem;color:var(--muted);margin-top:.2rem;}
+    .adm-topbar-actions{display:flex;align-items:center;gap:.75rem;}
+    .adm-live-badge{
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.75rem;font-weight:500;
+      color:var(--acc3);background:rgba(67,233,123,.08);
+      border:1px solid rgba(67,233,123,.2);
+      padding:.3rem .85rem;border-radius:100px;
+    }
+    .adm-live-dot{
+      width:6px;height:6px;background:var(--acc3);border-radius:50%;
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(67,233,123,.4);}50%{box-shadow:0 0 0 5px rgba(67,233,123,0);}}
+
+    /* ── VIEWS ── */
+    .view{display:none;}
+    .view.active{display:block;}
+
+    /* ── STATS ROW ── */
+    .stats-row{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1rem;margin-bottom:2rem;
+    }
+    .stat-card{
+      background:var(--glass);border:1px solid var(--border);
+      border-radius:var(--r2);padding:1.4rem 1.5rem;
+      display:flex;align-items:flex-start;gap:1rem;
+      transition:border-color .25s,transform .3s var(--spring);
+    }
+    .stat-card:hover{border-color:rgba(108,99,255,.25);transform:translateY(-3px);}
+    .stat-icon{
+      width:42px;height:42px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1rem;flex-shrink:0;
+    }
+    .stat-info strong{
+      display:block;font-family:var(--fh);font-size:1.75rem;
+      font-weight:800;line-height:1;
+    }
+    .stat-info span{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+
+    /* ── SECTION HEADER ── */
+    .sec-hd{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:1.25rem;
+    }
+    .sec-hd h3{font-family:var(--fh);font-size:1.1rem;font-weight:700;}
+    .sec-hd p{font-size:.82rem;color:var(--muted);margin-top:.1rem;}
+
+    /* ── BUTTONS ── */
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;
+      font-family:var(--fb);font-size:.88rem;font-weight:500;
+      padding:.6rem 1.3rem;border-radius:100px;
+      cursor:pointer;transition:transform .3s var(--spring),box-shadow .3s,opacity .2s;
+      border:none;white-space:nowrap;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#6c63ff,#a855f7);color:#fff;
+      box-shadow:0 6px 24px rgba(108,99,255,.35);
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(108,99,255,.5);}
+    .btn-ghost{
+      background:rgba(255,255,255,.04);color:var(--text);
+      border:1px solid var(--border2);
+    }
+    .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(108,99,255,.4);}
+    .btn-danger{background:rgba(255,101,132,.12);color:var(--acc2);border:1px solid rgba(255,101,132,.25);}
+    .btn-danger:hover{background:rgba(255,101,132,.22);}
+    .btn-success{background:rgba(67,233,123,.12);color:var(--acc3);border:1px solid rgba(67,233,123,.25);}
+    .btn-success:hover{background:rgba(67,233,123,.22);}
+    .btn-sm{padding:.4rem .9rem;font-size:.78rem;}
+    .btn:disabled{opacity:.45;pointer-events:none;}
+
+    /* ── UPLOAD ZONE ── */
+    .upload-panel{
+      background:var(--glass);border:1px solid var(--border);
+      border-radius:var(--r2);padding:2rem;margin-bottom:2rem;
+    }
+    .upload-panel h3{
+      font-family:var(--fh);font-size:1.1rem;font-weight:700;
+      margin-bottom:.3rem;
+    }
+    .upload-panel > p{font-size:.85rem;color:var(--muted);margin-bottom:1.75rem;}
+
+    .drop-zone{
+      border:2px dashed rgba(108,99,255,.35);
+      border-radius:var(--r2);padding:3rem 2rem;
+      text-align:center;cursor:pointer;
+      transition:border-color .25s,background .25s;
+      position:relative;
+    }
+    .drop-zone.drag-over{
+      border-color:var(--acc);background:rgba(108,99,255,.06);
+    }
+    .drop-zone input[type=file]{
+      position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+    }
+    .dz-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.6;}
+    .dz-title{font-family:var(--fh);font-size:1rem;font-weight:700;margin-bottom:.35rem;}
+    .dz-sub{font-size:.82rem;color:var(--muted);}
+    .dz-sub strong{color:var(--acc);}
+    .dz-formats{
+      display:flex;gap:.5rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;
+    }
+    .dz-fmt{
+      font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+      padding:.2rem .65rem;border-radius:100px;
+      background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--muted);
+    }
+
+    /* File list */
+    /* Picker buttons inside drop zone */
+    .dz-pick-btns{display:flex;gap:.65rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;}
+    .dz-pick-btn{
+      display:inline-flex;align-items:center;gap:.45rem;
+      font-family:var(--fb);font-size:.84rem;font-weight:500;
+      padding:.55rem 1.3rem;border-radius:100px;cursor:pointer;
+      background:rgba(108,99,255,.14);color:var(--acc);
+      border:1px solid rgba(108,99,255,.35);
+      transition:background .2s,transform .25s cubic-bezier(.34,1.56,.64,1);
+      pointer-events:all;z-index:2;position:relative;
+    }
+    .dz-pick-btn:hover{background:rgba(108,99,255,.25);transform:translateY(-2px);}
+    .dz-pick-sec{background:rgba(255,255,255,.05);color:var(--muted);border-color:var(--border2);}
+    .dz-pick-sec:hover{background:rgba(255,255,255,.1);color:var(--text);}
+
+    .file-list{margin-top:1.25rem;display:flex;flex-direction:column;gap:.5rem;}
+    .file-item{
+      display:flex;align-items:center;gap:.75rem;
+      background:rgba(255,255,255,.04);border:1px solid var(--border);
+      border-radius:var(--r);padding:.65rem 1rem;
+    }
+    .file-icon{
+      width:34px;height:34px;border-radius:8px;
+      background:rgba(108,99,255,.1);border:1px solid rgba(108,99,255,.2);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--acc);font-size:.85rem;flex-shrink:0;
+    }
+    .file-name{font-size:.86rem;font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .file-size{font-size:.75rem;color:var(--muted);flex-shrink:0;}
+    .file-remove{
+      background:none;border:none;color:var(--muted);cursor:pointer;
+      font-size:.8rem;padding:.2rem;transition:color .2s;flex-shrink:0;
+    }
+    .file-remove:hover{color:var(--acc2);}
+
+    /* Demo metadata form */
+    .meta-form{
+      display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;
+      margin-top:1.75rem;
+    }
+    .mf-group{display:flex;flex-direction:column;gap:.4rem;}
+    .mf-group.full{grid-column:1/-1;}
+    .mf-group label{
+      font-size:.72rem;font-weight:600;text-transform:uppercase;
+      letter-spacing:.1em;color:var(--muted);
+    }
+    .mf-group input,.mf-group select,.mf-group textarea{
+      background:rgba(255,255,255,.04);border:1px solid var(--border);
+      border-radius:var(--r);padding:.75rem 1rem;
+      color:var(--text);font-family:var(--fb);font-size:.9rem;
+      outline:none;resize:none;-webkit-appearance:none;
+      transition:border-color .25s,box-shadow .25s;
+    }
+    .mf-group select option{background:#0d1020;}
+    .mf-group input:focus,.mf-group select:focus,.mf-group textarea:focus{
+      border-color:rgba(108,99,255,.5);box-shadow:0 0 0 3px rgba(108,99,255,.1);
+    }
+    .mf-group input::placeholder,.mf-group textarea::placeholder{color:rgba(107,115,148,.35);}
+
+    .color-preview{
+      display:flex;align-items:center;gap:.75rem;
+    }
+    .color-preview input[type=color]{
+      width:42px;height:42px;border:none;background:none;
+      cursor:pointer;border-radius:8px;padding:2px;flex-shrink:0;
+    }
+    .color-preview input[type=text]{flex:1;}
+
+    /* Upload actions */
+    .upload-actions{
+      display:flex;align-items:center;gap:1rem;
+      margin-top:2rem;padding-top:1.5rem;
+      border-top:1px solid var(--border);
+      flex-wrap:wrap;
+    }
+    .upload-actions .btn{padding:.7rem 1.6rem;}
+
+    /* Progress */
+    .progress-wrap{
+      display:none;background:rgba(108,99,255,.06);
+      border:1px solid rgba(108,99,255,.2);border-radius:var(--r);
+      padding:1rem 1.25rem;margin-top:1rem;
+    }
+    .progress-wrap.show{display:block;}
+    .progress-label{
+      display:flex;justify-content:space-between;
+      font-size:.82rem;margin-bottom:.6rem;
+    }
+    .progress-label span:last-child{color:var(--acc);}
+    .progress-bar-bg{
+      height:6px;background:rgba(108,99,255,.15);
+      border-radius:4px;overflow:hidden;
+    }
+    .progress-bar{
+      height:100%;background:linear-gradient(90deg,var(--acc),#a855f7);
+      border-radius:4px;width:0;
+      transition:width .4s var(--ease);
+    }
+
+    /* ── DEMOS TABLE ── */
+    .demos-table-wrap{
+      background:var(--glass);border:1px solid var(--border);
+      border-radius:var(--r2);overflow:hidden;
+    }
+    .dt-head{
+      display:grid;grid-template-columns:2fr 1.2fr 1.2fr .8fr;
+      gap:1rem;padding:.85rem 1.5rem;
+      background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);
+      font-size:.7rem;font-weight:700;text-transform:uppercase;
+      letter-spacing:.1em;color:var(--muted);
+    }
+    .dt-row{
+      display:grid;grid-template-columns:2fr 1.2fr 1.2fr .8fr;
+      gap:1rem;padding:1rem 1.5rem;
+      border-bottom:1px solid var(--border);
+      align-items:center;
+      transition:background .2s;
+    }
+    .dt-row:last-child{border-bottom:none;}
+    .dt-row:hover{background:rgba(255,255,255,.025);}
+    .dt-name{display:flex;align-items:center;gap:.85rem;}
+    .dt-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .dt-title{font-size:.9rem;font-weight:600;}
+    .dt-slug{font-size:.75rem;color:var(--muted);}
+    .dt-tag{
+      display:inline-flex;font-size:.68rem;font-weight:600;
+      letter-spacing:.08em;text-transform:uppercase;
+      padding:.2rem .65rem;border-radius:100px;
+      background:rgba(108,99,255,.1);color:var(--acc);
+      border:1px solid rgba(108,99,255,.2);
+    }
+    .dt-status{
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.75rem;font-weight:500;
+    }
+    .dt-status.live{color:var(--acc3);}
+    .dt-status.draft{color:var(--gold);}
+    .dt-actions{display:flex;gap:.4rem;justify-content:flex-end;}
+    .dt-act-btn{
+      width:30px;height:30px;border-radius:8px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.78rem;cursor:pointer;border:none;
+      transition:background .2s,color .2s;
+    }
+
+    .dt-empty{
+      padding:4rem 2rem;text-align:center;color:var(--muted);
+    }
+    .dt-empty i{font-size:2.5rem;opacity:.3;display:block;margin-bottom:1rem;}
+    .dt-empty p{font-size:.9rem;}
+
+    /* ── GITHUB SETUP PANEL ── */
+    .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+    .setup-card{
+      background:var(--glass);border:1px solid var(--border);
+      border-radius:var(--r2);padding:1.75rem;
+    }
+    .setup-card h3{
+      font-family:var(--fh);font-size:1rem;font-weight:700;
+      margin-bottom:.35rem;display:flex;align-items:center;gap:.6rem;
+    }
+    .setup-card h3 i{color:var(--acc);}
+    .setup-card > p{font-size:.84rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+
+    .setup-steps{display:flex;flex-direction:column;gap:1rem;}
+    .step{display:flex;align-items:flex-start;gap:.85rem;}
+    .step-num{
+      width:28px;height:28px;border-radius:50%;flex-shrink:0;
+      background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.3);
+      color:var(--acc);font-family:var(--fh);font-weight:800;
+      font-size:.75rem;display:flex;align-items:center;justify-content:center;
+    }
+    .step-body strong{display:block;font-size:.86rem;font-weight:600;margin-bottom:.15rem;}
+    .step-body p{font-size:.8rem;color:var(--muted);line-height:1.55;}
+    .step-body code{
+      font-size:.77rem;background:rgba(255,255,255,.07);
+      border:1px solid var(--border);border-radius:6px;
+      padding:.2rem .5rem;font-family:monospace;
+      color:var(--acc3);
+    }
+
+    .gh-form{display:flex;flex-direction:column;gap:.9rem;}
+    .gh-group{display:flex;flex-direction:column;gap:.35rem;}
+    .gh-group label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+    .gh-group input{
+      background:rgba(255,255,255,.04);border:1px solid var(--border);
+      border-radius:var(--r);padding:.75rem 1rem;
+      color:var(--text);font-family:var(--fb);font-size:.9rem;
+      outline:none;-webkit-appearance:none;
+      transition:border-color .25s,box-shadow .25s;
+    }
+    .gh-group input:focus{border-color:rgba(108,99,255,.5);box-shadow:0 0 0 3px rgba(108,99,255,.1);}
+    .gh-group input::placeholder{color:rgba(107,115,148,.35);}
+
+    .gh-status{
+      display:flex;align-items:center;gap:.5rem;
+      font-size:.82rem;padding:.6rem .9rem;border-radius:var(--r);
+      margin-top:.5rem;
+    }
+    .gh-status.ok{background:rgba(67,233,123,.08);color:var(--acc3);border:1px solid rgba(67,233,123,.2);}
+    .gh-status.err{background:rgba(255,101,132,.08);color:var(--acc2);border:1px solid rgba(255,101,132,.2);}
+    .gh-status.info{background:rgba(108,99,255,.08);color:var(--acc);border:1px solid rgba(108,99,255,.2);}
+
+    /* ── TOAST ── */
+    .toast-stack{
+      position:fixed;bottom:2rem;right:2rem;
+      display:flex;flex-direction:column;gap:.6rem;
+      z-index:9999;pointer-events:none;
+    }
+    .toast{
+      display:flex;align-items:center;gap:.75rem;
+      background:rgba(10,15,30,.95);border:1px solid var(--border2);
+      padding:.85rem 1.25rem;border-radius:var(--r);
+      backdrop-filter:blur(20px);
+      box-shadow:0 16px 48px rgba(0,0,0,.6);
+      font-size:.88rem;min-width:260px;max-width:340px;
+      opacity:0;transform:translateX(24px);
+      transition:opacity .3s,transform .3s;
+      pointer-events:all;
+    }
+    .toast.show{opacity:1;transform:translateX(0);}
+    .toast.hide{opacity:0;transform:translateX(24px);}
+    .toast i{flex-shrink:0;font-size:1rem;}
+    .toast.success i{color:var(--acc3);}
+    .toast.error i{color:var(--acc2);}
+    .toast.info i{color:var(--acc);}
+
+    /* ── MODAL ── */
+    .modal-overlay{
+      position:fixed;inset:0;z-index:1000;
+      background:rgba(0,0,0,.6);backdrop-filter:blur(8px);
+      display:none;align-items:center;justify-content:center;padding:1rem;
+    }
+    .modal-overlay.open{display:flex;}
+    .modal{
+      background:var(--bg2);border:1px solid var(--border2);
+      border-radius:var(--r2);padding:2rem;
+      max-width:480px;width:100%;
+      box-shadow:0 40px 100px rgba(0,0,0,.7);
+    }
+    .modal h3{font-family:var(--fh);font-size:1.1rem;font-weight:700;margin-bottom:.6rem;}
+    .modal p{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem;}
+    .modal-actions{display:flex;gap:.75rem;justify-content:flex-end;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px){
+      .stats-row{grid-template-columns:repeat(2,1fr);}
+      .setup-grid{grid-template-columns:1fr;}
+      .meta-form{grid-template-columns:1fr;}
+      .mf-group.full{grid-column:1;}
+    }
+    @media(max-width:900px){
+      :root{--sidebar:0px;}
+      .sidebar{transform:translateX(-260px);}
+      .sidebar.open{transform:translateX(0);width:260px;}
+      .sb-toggle{display:flex;}
+      .sb-overlay.open{display:block;}
+      .adm-main{margin-left:0;padding:1.25rem 1.25rem 1.25rem 1.25rem;}
+      .adm-topbar{padding-top:3rem;}
+    }
+    @media(max-width:600px){
+      .adm-main{padding:1rem;}
+      .adm-topbar{padding-top:3.5rem;flex-direction:column;align-items:flex-start;gap:.75rem;}
+      .stats-row{grid-template-columns:1fr 1fr;}
+      .dt-head,.dt-row{grid-template-columns:1fr auto auto;}
+      .dt-head .dt-tag-col,.dt-row .dt-tag-col{display:none;}
+      .upload-actions{flex-direction:column;}
+      .upload-actions .btn{width:100%;justify-content:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR TOGGLE (mobile) ── -->
+<button class="sb-toggle" id="sbToggle"><i class="fas fa-bars"></i></button>
+<div class="sb-overlay" id="sbOverlay"></div>
+
+<div class="adm-layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <a href="../index.html" target="_blank">make<span>your</span>web<em>.xyz</em></a><br/>
+      <span class="sb-badge"><i class="fas fa-circle"></i> Admin Panel</span>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-section-label">Main</div>
+      <button class="sb-link active" data-view="overview"><i class="fas fa-gauge"></i> Overview</button>
+      <button class="sb-link" data-view="upload"><i class="fas fa-cloud-arrow-up"></i> Upload Demo</button>
+      <button class="sb-link" data-view="demos"><i class="fas fa-grid-2"></i> Manage Demos</button>
+
+      <div class="sb-section-label">Settings</div>
+      <button class="sb-link" data-view="github"><i class="fab fa-github"></i> GitHub & Deploy</button>
+      <a class="sb-link" href="../index.html" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> View Live Site</a>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar">R</div>
+        <div class="sb-user-info">
+          <strong>Rahul</strong>
+          <span>Administrator</span>
+        </div>
+        <button class="sb-logout" id="logoutBtn" title="Log out"><i class="fas fa-right-from-bracket"></i></button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-page-title" id="pageTitle">
+        <h2>Overview</h2>
+        <p>Welcome back, Rahul. Here's your portfolio at a glance.</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <div class="adm-live-badge"><div class="adm-live-dot"></div> makeyourweb.xyz</div>
+      </div>
+    </div>
+
+    <!-- ══════════════
+         VIEW: OVERVIEW
+    ══════════════════ -->
+    <div class="view active" id="view-overview">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(108,99,255,.1);color:var(--acc)"><i class="fas fa-grid-2"></i></div>
+          <div class="stat-info">
+            <strong id="statDemoCount">7</strong>
+            <span>Live Demos</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(67,233,123,.1);color:var(--acc3)"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-info">
+            <strong id="statLiveCount">7</strong>
+            <span>Published</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(245,200,66,.1);color:var(--gold)"><i class="fas fa-star"></i></div>
+          <div class="stat-info">
+            <strong>5.0★</strong>
+            <span>Avg Rating</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(255,101,132,.1);color:var(--acc2)"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <strong>50+</strong>
+            <span>Clients</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-hd">
+        <div>
+          <h3>Recent Demos</h3>
+          <p>Your latest portfolio entries</p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="switchView('upload')">
+          <i class="fas fa-plus"></i> Add New
+        </button>
+      </div>
+
+      <div class="demos-table-wrap">
+        <div class="dt-head">
+          <div>Website</div>
+          <div class="dt-tag-col">Category</div>
+          <div>Status</div>
+          <div></div>
+        </div>
+        <div id="overviewTableBody"></div>
+      </div>
+
+      <!-- Quick guide -->
+      <div style="margin-top:2rem;">
+        <div class="sec-hd"><div><h3>🚀 Quick Start Guide</h3><p>How to add a new demo in 3 steps</p></div></div>
+        <div class="setup-steps" style="background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:1.75rem;max-width:580px;">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Upload your demo files</strong>
+              <p>Go to <b>Upload Demo</b> and drag & drop your website's HTML, CSS, JS files. Give it a name and category.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Configure GitHub (one time)</strong>
+              <p>In <b>GitHub & Deploy</b>, add your GitHub token and repo name. This only needs to be done once.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Publish — it goes live in ~30s</strong>
+              <p>Click <b>Publish to GitHub</b>. Netlify auto-deploys and the new demo card appears on your site.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════
+         VIEW: UPLOAD
+    ══════════════════ -->
+    <div class="view" id="view-upload">
+
+      <div class="upload-panel">
+        <h3><i class="fas fa-folder-open" style="color:var(--acc);margin-right:.5rem"></i> Upload Demo Website Files</h3>
+        <p>Drag & drop your entire demo website folder. Include <code style="font-size:.8rem;background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:6px;padding:.1rem .4rem;font-family:monospace;color:var(--acc3)">index.html</code>, CSS, JS, and any images.</p>
+
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="folderInput" webkitdirectory multiple style="display:none"/>
+          <input type="file" id="fileInput" multiple accept=".html,.css,.js,.jpg,.jpeg,.png,.gif,.svg,.webp,.ico,.json,.xml,.txt,.woff,.woff2,.ttf" style="display:none"/>
+          <div class="dz-icon">📂</div>
+          <div class="dz-title">Drop your project folder here</div>
+          <div class="dz-sub">or choose how to upload:</div>
+          <div class="dz-pick-btns">
+            <button type="button" class="dz-pick-btn" id="pickFolderBtn">
+              <i class="fas fa-folder"></i> Pick Folder
+            </button>
+            <button type="button" class="dz-pick-btn dz-pick-sec" id="pickFilesBtn">
+              <i class="fas fa-file"></i> Pick Files
+            </button>
+          </div>
+          <div class="dz-formats" style="margin-top:.75rem">
+            <span class="dz-fmt">HTML</span>
+            <span class="dz-fmt">CSS</span>
+            <span class="dz-fmt">JS</span>
+            <span class="dz-fmt">Images</span>
+            <span class="dz-fmt">Fonts</span>
+            <span class="dz-fmt">Folders ✓</span>
+          </div>
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+
+        <!-- Meta info -->
+        <div class="meta-form" id="metaForm" style="display:none">
+          <div class="mf-group">
+            <label>Demo Title *</label>
+            <input type="text" id="mTitle" placeholder="e.g. IRONVAULT Gym" required/>
+          </div>
+          <div class="mf-group">
+            <label>URL Slug *</label>
+            <input type="text" id="mSlug" placeholder="e.g. ironvault-gym" required/>
+          </div>
+          <div class="mf-group">
+            <label>Category *</label>
+            <select id="mCategory">
+              <option value="">Select category</option>
+              <option>Gym & Fitness</option>
+              <option>Restaurant & Café</option>
+              <option>Hotel & Resort</option>
+              <option>Clinic & Hospital</option>
+              <option>Real Estate</option>
+              <option>Education</option>
+              <option>Small Business</option>
+              <option>E-Commerce</option>
+              <option>Portfolio</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="mf-group">
+            <label>Accent Color</label>
+            <div class="color-preview">
+              <input type="color" id="mColor" value="#6c63ff"/>
+              <input type="text" id="mColorHex" value="#6c63ff" placeholder="#6c63ff"/>
+            </div>
+          </div>
+          <div class="mf-group full">
+            <label>Short Description *</label>
+            <textarea id="mDesc" rows="2" placeholder="e.g. Dark neon-yellow hardcore aesthetic. Membership plans & class timetable."></textarea>
+          </div>
+          <div class="mf-group">
+            <label>Status</label>
+            <select id="mStatus">
+              <option value="live">Live (show on site)</option>
+              <option value="draft">Draft (hidden)</option>
+            </select>
+          </div>
+          <div class="mf-group">
+            <label>Tags (comma separated)</label>
+            <input type="text" id="mTags" placeholder="e.g. dark, neon, fitness"/>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress-label">
+            <span id="progressLabel">Uploading to GitHub…</span>
+            <span id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="upload-actions" id="uploadActions" style="display:none">
+          <button class="btn btn-primary" id="publishBtn"><i class="fas fa-rocket"></i> Publish to GitHub</button>
+          <button class="btn btn-ghost" id="saveDraftBtn"><i class="fas fa-floppy-disk"></i> Save as Draft</button>
+          <button class="btn btn-danger btn-sm" id="clearUploadBtn"><i class="fas fa-trash"></i> Clear</button>
+        </div>
+      </div>
+
+      <!-- Helpful note -->
+      <div style="background:rgba(108,99,255,.06);border:1px solid rgba(108,99,255,.18);border-radius:var(--r2);padding:1.5rem;">
+        <p style="font-size:.86rem;color:var(--muted);line-height:1.7;">
+          <i class="fas fa-circle-info" style="color:var(--acc);margin-right:.4rem"></i>
+          <strong style="color:var(--text)">How publishing works:</strong>
+          When you click <em>Publish</em>, the files are committed to your GitHub repository via the GitHub API.
+          Netlify detects the commit and automatically redeploys your live site within ~30 seconds.
+          Make sure you've configured your GitHub token in the <b>GitHub & Deploy</b> tab first.
+        </p>
+      </div>
+    </div>
+
+    <!-- ══════════════
+         VIEW: DEMOS
+    ══════════════════ -->
+    <div class="view" id="view-demos">
+      <div class="sec-hd">
+        <div>
+          <h3>All Demo Websites</h3>
+          <p id="demosCountLabel">Loading…</p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="switchView('upload')">
+          <i class="fas fa-plus"></i> Add Demo
+        </button>
+      </div>
+
+      <div class="demos-table-wrap">
+        <div class="dt-head">
+          <div>Website</div>
+          <div class="dt-tag-col">Category</div>
+          <div>Status</div>
+          <div></div>
+        </div>
+        <div id="demosTableBody"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════
+         VIEW: GITHUB
+    ══════════════════ -->
+    <div class="view" id="view-github">
+
+      <div class="setup-grid">
+        <!-- HOW IT WORKS -->
+        <div class="setup-card">
+          <h3><i class="fas fa-book"></i> How GitHub + Netlify Works</h3>
+          <p>Once configured, uploading a demo here pushes files to your GitHub repo. Netlify auto-deploys within ~30 seconds.</p>
+          <div class="setup-steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <strong>Create a GitHub repo</strong>
+                <p>Go to <a href="https://github.com/new" target="_blank" style="color:var(--acc)">github.com/new</a> and create a private repo named <code>makeyourweb</code></p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <strong>Generate a Personal Access Token</strong>
+                <p>Go to GitHub → Settings → Developer Settings → Personal Access Tokens → Generate with <code>repo</code> scope</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <strong>Connect Netlify to your repo</strong>
+                <p>At <a href="https://app.netlify.com" target="_blank" style="color:var(--acc)">app.netlify.com</a> → Add new site → Import from GitHub → select your repo</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <strong>Paste your token below and save</strong>
+                <p>That's it! Every new upload will auto-deploy to your live Netlify URL.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONFIG FORM -->
+        <div class="setup-card">
+          <h3><i class="fab fa-github"></i> GitHub Configuration</h3>
+          <p>These settings are stored in your browser's local storage. Never share your token.</p>
+
+          <div class="gh-form">
+            <div class="gh-group">
+              <label>GitHub Username</label>
+              <input type="text" id="ghUser" placeholder="e.g. rahulmishra" autocomplete="off"/>
+            </div>
+            <div class="gh-group">
+              <label>Repository Name</label>
+              <input type="text" id="ghRepo" placeholder="e.g. makeyourweb" autocomplete="off"/>
+            </div>
+            <div class="gh-group">
+              <label>Branch</label>
+              <input type="text" id="ghBranch" placeholder="main" value="main" autocomplete="off"/>
+            </div>
+            <div class="gh-group">
+              <label>Personal Access Token</label>
+              <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off"/>
+            </div>
+
+            <div id="ghStatus" style="display:none"></div>
+
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+              <button class="btn btn-primary" id="ghSaveBtn"><i class="fas fa-floppy-disk"></i> Save Config</button>
+              <button class="btn btn-ghost" id="ghTestBtn"><i class="fas fa-plug"></i> Test Connection</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Netlify tip -->
+      <div style="background:rgba(67,233,123,.05);border:1px solid rgba(67,233,123,.15);border-radius:var(--r2);padding:1.5rem;">
+        <p style="font-size:.86rem;color:var(--muted);line-height:1.7;">
+          <i class="fas fa-circle-check" style="color:var(--acc3);margin-right:.4rem"></i>
+          <strong style="color:var(--text)">Pro tip:</strong>
+          After connecting Netlify, set your custom domain <code style="font-size:.8rem;background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:6px;padding:.1rem .4rem;font-family:monospace;color:var(--acc3)">makeyourweb.xyz</code>
+          in Netlify → Domain settings. All future deploys will go live at your real domain automatically. Hosting is completely free on Netlify's starter plan.
+        </p>
+      </div>
+    </div>
+
+  </main><!-- /adm-main -->
+</div><!-- /adm-layout -->
+
+<!-- TOAST STACK -->
+<div class="toast-stack" id="toastStack"></div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3>⚠️ Delete this demo?</h3>
+    <p>This will remove <strong id="deleteModalName"></strong> from your portfolio list. If you've already published, you'll need to also delete the files from GitHub manually.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" id="deleteCancelBtn">Cancel</button>
+      <button class="btn btn-danger btn-sm" id="deleteConfirmBtn"><i class="fas fa-trash"></i> Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   MAKEYOURWEB ADMIN — DASHBOARD SCRIPT
+═══════════════════════════════════════ */
+
+const SESSION_KEY = 'myw_admin_auth';
+const DEMOS_KEY   = 'myw_demos';
+const GH_KEY      = 'myw_gh_config';
+
+// Auth guard
+if (sessionStorage.getItem(SESSION_KEY) !== 'true') {
+  window.location.href = 'index.html';
+}
+
+/* ── DEFAULT DEMOS (from existing site) ── */
+const DEFAULT_DEMOS = [
+  { id:'hotel',       title:'LUMIÈRE Luxury Hotel',           slug:'demos/hotel',       category:'Hotel & Resort',    color:'#C9A84C', desc:'Elegant rooms, gold aesthetic, fine dining & rooftop pool showcase.',              status:'live', builtin:true },
+  { id:'gym',         title:'IRONVAULT Gym',                  slug:'demos/gym',         category:'Gym & Fitness',     color:'#e8ff00', desc:'Dark neon-yellow hardcore aesthetic. Membership plans & class timetable.',          status:'live', builtin:true },
+  { id:'restaurant',  title:'EMBER & ASH Restaurant',         slug:'demos/restaurant',  category:'Restaurant & Café', color:'#c0622a', desc:'Warm dark fine-dining theme. Full menu, reservation system & ambiance gallery.',     status:'live', builtin:true },
+  { id:'clinic',      title:'SERENOVA Health',                slug:'demos/clinic',      category:'Clinic & Hospital', color:'#0891b2', desc:'Clean teal-white medical design. Doctor profiles & appointment booking.',            status:'live', builtin:true },
+  { id:'education',   title:'MERIDIAN Institute',             slug:'demos/education',   category:'Education',         color:'#2563eb', desc:'Light editorial education design. Course listings & online admission form.',         status:'live', builtin:true },
+  { id:'real-estate', title:'AURUM Estates',                  slug:'demos/real-estate', category:'Real Estate',       color:'#c9a84c', desc:'Dark gold luxury real estate. Property listings, virtual tours & lead capture.',     status:'live', builtin:true },
+  { id:'business',    title:'PRESTIGE — Universal Business',  slug:'demos/business',    category:'Small Business',    color:'#4f7cff', desc:'One template, 6 live switchable colour themes. Works for any business.',             status:'live', builtin:true },
+];
+
+/* ── STATE ── */
+let demos     = loadDemos();
+let uploadedFiles = [];
+let deletePendingId = null;
+
+function loadDemos() {
+  const saved = localStorage.getItem(DEMOS_KEY);
+  if (!saved) return [...DEFAULT_DEMOS];
+  const parsed = JSON.parse(saved);
+  // Merge: keep builtin demos, add custom on top
+  const customIds = parsed.map(d => d.id);
+  const builtins  = DEFAULT_DEMOS.filter(d => !customIds.includes(d.id));
+  return [...parsed, ...builtins.filter(d => d.builtin)];
+}
+
+function saveDemos() {
+  localStorage.setItem(DEMOS_KEY, JSON.stringify(demos));
+  updateStats();
+}
+
+/* ── VIEW SWITCHING ── */
+const sidebar = document.getElementById('sidebar');
+const sbToggle= document.getElementById('sbToggle');
+const sbOverlay=document.getElementById('sbOverlay');
+
+sbToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  sbOverlay.classList.toggle('open');
+});
+sbOverlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  sbOverlay.classList.remove('open');
+});
+
+function switchView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelector(`[data-view="${name}"]`)?.classList.add('active');
+
+  // Update page title
+  const titles = {
+    overview:'Overview', upload:'Upload Demo',
+    demos:'Manage Demos', github:'GitHub & Deploy'
+  };
+  const subtitles = {
+    overview:'Welcome back, Rahul. Here\'s your portfolio at a glance.',
+    upload:'Add a new website demo to your portfolio.',
+    demos:'View, edit, and manage all your demo websites.',
+    github:'Configure GitHub & Netlify auto-deploy.'
+  };
+  document.querySelector('#pageTitle h2').textContent = titles[name] || name;
+  document.querySelector('#pageTitle p').textContent  = subtitles[name] || '';
+
+  // Close mobile sidebar
+  sidebar.classList.remove('open');
+  sbOverlay.classList.remove('open');
+
+  if (name === 'demos' || name === 'overview') renderTables();
+  if (name === 'github') loadGhConfig();
+}
+
+document.querySelectorAll('.sb-link[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => switchView(btn.dataset.view));
+});
+
+/* ── STATS ── */
+function updateStats() {
+  const liveCount = demos.filter(d => d.status === 'live').length;
+  document.getElementById('statDemoCount').textContent = demos.length;
+  document.getElementById('statLiveCount').textContent = liveCount;
+}
+
+/* ── RENDER TABLES ── */
+function renderTables() {
+  renderTable('overviewTableBody', demos.slice(0, 6));
+  renderTable('demosTableBody', demos);
+  document.getElementById('demosCountLabel').textContent = `${demos.length} demos (${demos.filter(d=>d.status==='live').length} live)`;
+  updateStats();
+}
+
+function renderTable(containerId, list) {
+  const el = document.getElementById(containerId);
+  if (!list.length) {
+    el.innerHTML = `<div class="dt-empty"><i class="fas fa-folder-open"></i><p>No demos yet. <a style="color:var(--acc);cursor:pointer" onclick="switchView('upload')">Upload your first one →</a></p></div>`;
+    return;
+  }
+  el.innerHTML = list.map(d => `
+    <div class="dt-row">
+      <div class="dt-name">
+        <div class="dt-dot" style="background:${d.color}"></div>
+        <div>
+          <div class="dt-title">${d.title}</div>
+          <div class="dt-slug">${d.slug}/</div>
+        </div>
+      </div>
+      <div class="dt-tag-col">
+        <span class="dt-tag" style="color:${d.color};background:${d.color}18;border-color:${d.color}38">${d.category}</span>
+      </div>
+      <div>
+        <span class="dt-status ${d.status}">
+          ${d.status === 'live' ? '● Live' : '○ Draft'}
+        </span>
+      </div>
+      <div class="dt-actions">
+        <a class="dt-act-btn" href="../${d.slug}/index.html" target="_blank"
+           style="background:rgba(108,99,255,.1);color:var(--acc)"
+           title="Preview"><i class="fas fa-eye"></i></a>
+        ${!d.builtin ? `
+          <button class="dt-act-btn" onclick="toggleStatus('${d.id}')"
+            style="background:rgba(67,233,123,.1);color:var(--acc3)"
+            title="Toggle status"><i class="fas fa-toggle-${d.status==='live'?'on':'off'}"></i></button>
+          <button class="dt-act-btn" onclick="confirmDelete('${d.id}')"
+            style="background:rgba(255,101,132,.1);color:var(--acc2)"
+            title="Delete"><i class="fas fa-trash"></i></button>
+        ` : `<span style="font-size:.7rem;color:var(--muted);padding:0 .25rem">built-in</span>`}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── TOGGLE STATUS ── */
+function toggleStatus(id) {
+  const demo = demos.find(d => d.id === id);
+  if (!demo) return;
+  demo.status = demo.status === 'live' ? 'draft' : 'live';
+  saveDemos();
+  renderTables();
+  showToast(`"${demo.title}" set to ${demo.status}`, 'info');
+}
+
+/* ── DELETE ── */
+function confirmDelete(id) {
+  const demo = demos.find(d => d.id === id);
+  if (!demo) return;
+  deletePendingId = id;
+  document.getElementById('deleteModalName').textContent = demo.title;
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+document.getElementById('deleteCancelBtn').addEventListener('click', () => {
+  document.getElementById('deleteModal').classList.remove('open');
+  deletePendingId = null;
+});
+
+document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
+  if (!deletePendingId) return;
+  const name = demos.find(d => d.id === deletePendingId)?.title;
+  demos = demos.filter(d => d.id !== deletePendingId);
+  saveDemos();
+  renderTables();
+  document.getElementById('deleteModal').classList.remove('open');
+  deletePendingId = null;
+  showToast(`"${name}" removed from portfolio`, 'success');
+});
+
+/* ── FILE UPLOAD — Folder + File aware ── */
+const dropZone    = document.getElementById('dropZone');
+const folderInput = document.getElementById('folderInput');
+const fileInput   = document.getElementById('fileInput');
+const fileList    = document.getElementById('fileList');
+const metaForm    = document.getElementById('metaForm');
+const uploadActions = document.getElementById('uploadActions');
+
+// Button triggers
+document.getElementById('pickFolderBtn').addEventListener('click', e => { e.stopPropagation(); folderInput.click(); });
+document.getElementById('pickFilesBtn').addEventListener('click',  e => { e.stopPropagation(); fileInput.click(); });
+
+// Folder picker — preserves webkitRelativePath so subfolders work
+folderInput.addEventListener('change', e => {
+  const files = Array.from(e.target.files);
+  // Give each file its relative path as a custom property
+  files.forEach(f => { if (!f._relativePath) f._relativePath = f.webkitRelativePath || f.name; });
+  handleFiles(files);
+  folderInput.value = '';
+});
+
+// Regular file picker
+fileInput.addEventListener('change', e => {
+  const files = Array.from(e.target.files);
+  files.forEach(f => { f._relativePath = f.name; });
+  handleFiles(files);
+  fileInput.value = '';
+});
+
+// Drag-over / drag-leave
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', e => {
+  if (!dropZone.contains(e.relatedTarget)) dropZone.classList.remove('drag-over');
+});
+
+// DROP — handles both files and entire folders via DataTransferItem API
+dropZone.addEventListener('drop', async e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+
+  const items = Array.from(e.dataTransfer.items || []);
+  if (!items.length) return;
+
+  showToast('Reading dropped items…', 'info');
+
+  const allFiles = [];
+  for (const item of items) {
+    if (item.kind !== 'file') continue;
+    const entry = item.webkitGetAsEntry ? item.webkitGetAsEntry() : null;
+    if (entry) {
+      const collected = await readEntry(entry, '');
+      allFiles.push(...collected);
+    } else {
+      const f = item.getAsFile();
+      if (f) { f._relativePath = f.name; allFiles.push(f); }
+    }
+  }
+
+  if (allFiles.length) handleFiles(allFiles);
+  else showToast('Could not read dropped items. Try the Pick buttons instead.', 'error');
+});
+
+// Recursively read a FileSystemEntry (file or directory)
+function readEntry(entry, pathPrefix) {
+  return new Promise(resolve => {
+    if (entry.isFile) {
+      entry.file(f => {
+        f._relativePath = pathPrefix ? pathPrefix + '/' + entry.name : entry.name;
+        resolve([f]);
+      }, () => resolve([]));
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const results = [];
+      function readBatch() {
+        reader.readEntries(async entries => {
+          if (!entries.length) { resolve(results); return; }
+          for (const child of entries) {
+            const sub = await readEntry(child, pathPrefix ? pathPrefix + '/' + entry.name : entry.name);
+            results.push(...sub);
+          }
+          readBatch(); // directories can return entries in batches
+        }, () => resolve(results));
+      }
+      readBatch();
+    } else {
+      resolve([]);
+    }
+  });
+}
+
+function handleFiles(newFiles) {
+  if (!newFiles.length) return;
+
+  // Strip leading root-folder segment if all files share one (e.g. "isckon/index.html" → "index.html")
+  const paths = newFiles.map(f => f._relativePath || f.name);
+  const topFolders = [...new Set(paths.map(p => p.split('/')[0]))];
+  let stripPrefix = '';
+  if (topFolders.length === 1 && paths.some(p => p.includes('/'))) {
+    stripPrefix = topFolders[0] + '/';
+  }
+
+  newFiles.forEach(f => {
+    const rel = (f._relativePath || f.name).replace(/^\/+/, '');
+    f._cleanPath = stripPrefix && rel.startsWith(stripPrefix)
+      ? rel.slice(stripPrefix.length) : rel;
+  });
+
+  // Merge — avoid exact duplicate clean paths
+  const existingPaths = new Set(uploadedFiles.map(f => f._cleanPath));
+  const toAdd = newFiles.filter(f => f._cleanPath && !existingPaths.has(f._cleanPath));
+  uploadedFiles = [...uploadedFiles, ...toAdd];
+
+  renderFileList();
+  metaForm.style.display = 'grid';
+  uploadActions.style.display = 'flex';
+
+  // Auto-suggest title/slug from root folder name or first html file
+  if (!document.getElementById('mTitle').value) {
+    const rootFolder = stripPrefix ? stripPrefix.replace(/\/$/, '') : '';
+    const htmlFile   = newFiles.find(f => f._cleanPath === 'index.html' || f.name === 'index.html');
+    let suggested = rootFolder || (htmlFile ? '' : (newFiles[0]?.name || ''));
+
+    if (suggested) {
+      const nice = suggested.replace(/[_-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+      document.getElementById('mTitle').value = nice;
+      document.getElementById('mSlug').value  = 'demos/' + suggested.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    }
+  }
+}
+
+function renderFileList() {
+  if (!uploadedFiles.length) { fileList.innerHTML = ''; return; }
+
+  // Group by folder
+  const groups = {};
+  uploadedFiles.forEach((f, i) => {
+    const parts = (f._cleanPath || f.name).split('/');
+    const folder = parts.length > 1 ? parts[0] : '(root)';
+    if (!groups[folder]) groups[folder] = [];
+    groups[folder].push({ f, i });
+  });
+
+  let html = '';
+  for (const [folder, items] of Object.entries(groups)) {
+    if (folder !== '(root)') {
+      html += `<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:.3rem 0 .1rem;margin-top:.4rem;">
+        <i class="fas fa-folder" style="color:var(--acc);margin-right:.35rem;font-size:.65rem"></i>${folder}/
+      </div>`;
+    }
+    items.forEach(({ f, i }) => {
+      const name = (f._cleanPath || f.name).split('/').pop();
+      html += `<div class="file-item">
+        <div class="file-icon"><i class="fas fa-${getFileIcon(name)}"></i></div>
+        <span class="file-name">${f._cleanPath || f.name}</span>
+        <span class="file-size">${formatSize(f.size)}</span>
+        <button class="file-remove" onclick="removeFile(${i})" title="Remove"><i class="fas fa-xmark"></i></button>
+      </div>`;
+    });
+  }
+  fileList.innerHTML = html;
+}
+
+function removeFile(i) {
+  uploadedFiles.splice(i, 1);
+  renderFileList();
+  if (!uploadedFiles.length) {
+    metaForm.style.display = 'none';
+    uploadActions.style.display = 'none';
+  }
+}
+
+function getFileIcon(name) {
+  if (!name) return 'file';
+  if (name.endsWith('.html')) return 'code';
+  if (name.endsWith('.css'))  return 'palette';
+  if (name.endsWith('.js'))   return 'bolt';
+  if (/\.(jpg|jpeg|png|gif|svg|webp|ico)$/i.test(name)) return 'image';
+  if (/\.(woff|woff2|ttf|eot)$/i.test(name)) return 'font';
+  if (name.endsWith('.json')) return 'brackets-curly';
+  return 'file';
+}
+
+function formatSize(bytes) {
+  if (!bytes || bytes === 0) return '—';
+  if (bytes < 1024) return bytes + 'B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + 'KB';
+  return (bytes/1024/1024).toFixed(1) + 'MB';
+}
+
+// Sync color pickers
+document.getElementById('mColor').addEventListener('input', e => {
+  document.getElementById('mColorHex').value = e.target.value;
+});
+document.getElementById('mColorHex').addEventListener('input', e => {
+  if (/^#[0-9a-fA-F]{6}$/.test(e.target.value)) document.getElementById('mColor').value = e.target.value;
+});
+
+// Auto-slug from title
+document.getElementById('mTitle').addEventListener('input', e => {
+  const existing = document.getElementById('mSlug').value;
+  const autoSlug = 'demos/' + e.target.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  if (!existing || existing.startsWith('demos/')) {
+    document.getElementById('mSlug').value = autoSlug;
+  }
+});
+
+/* ── PUBLISH ── */
+document.getElementById('publishBtn').addEventListener('click', () => publishDemo(false));
+document.getElementById('saveDraftBtn').addEventListener('click', () => publishDemo(true));
+
+async function publishDemo(asDraft) {
+  const title    = document.getElementById('mTitle').value.trim();
+  const slug     = document.getElementById('mSlug').value.trim().replace(/\/+$/, '');
+  const category = document.getElementById('mCategory').value;
+  const color    = document.getElementById('mColorHex').value || '#6c63ff';
+  const desc     = document.getElementById('mDesc').value.trim();
+  const status   = asDraft ? 'draft' : (document.getElementById('mStatus').value || 'live');
+
+  if (!title || !slug || !category || !desc) {
+    showToast('Please fill in all required fields.', 'error'); return;
+  }
+  if (!uploadedFiles.length) {
+    showToast('Please upload at least one file.', 'error'); return;
+  }
+
+  const ghConfig = loadGhConfig();
+  const hasGh    = ghConfig && ghConfig.token && ghConfig.user && ghConfig.repo;
+
+  // Build demo object
+  const newDemo = {
+    id: slug.split('/').pop() + '-' + Date.now(),
+    title, slug, category, color, desc, status,
+    tags: document.getElementById('mTags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    createdAt: new Date().toISOString(),
+    builtin: false
+  };
+
+  if (!asDraft && hasGh) {
+    // Push files to GitHub
+    await pushToGitHub(ghConfig, slug, uploadedFiles, newDemo);
+  } else {
+    // Save locally as draft
+    demos.unshift(newDemo);
+    saveDemos();
+    showToast(asDraft ? `"${title}" saved as draft.` : `"${title}" added! Configure GitHub to auto-deploy.`, 'success');
+    resetUploadForm();
+    switchView('demos');
+  }
+}
+
+async function pushToGitHub(cfg, slug, files, demo) {
+  const progWrap = document.getElementById('progressWrap');
+  const progBar  = document.getElementById('progressBar');
+  const progPct  = document.getElementById('progressPct');
+  const progLbl  = document.getElementById('progressLabel');
+  const publishBtn = document.getElementById('publishBtn');
+
+  progWrap.classList.add('show');
+  publishBtn.disabled = true;
+
+  const total = files.length + 1; // +1 for demos.json update
+  let done = 0;
+
+  function setProgress(label, pct) {
+    progLbl.textContent = label;
+    progPct.textContent = pct + '%';
+    progBar.style.width = pct + '%';
+  }
+
+  try {
+    const base = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents`;
+    const headers = {
+      'Authorization': `Bearer ${cfg.token}`,
+      'Content-Type':  'application/json',
+      'Accept':        'application/vnd.github.v3+json'
+    };
+
+    for (const file of files) {
+      setProgress(`Uploading ${file.name}…`, Math.round((done / total) * 80));
+      const content = await readFileAsBase64(file);
+      // Use _cleanPath to preserve subfolder structure (e.g. css/style.css)
+      const relativePath = file._cleanPath || file.name;
+      const path    = `${slug}/${relativePath}`;
+
+      // Check if file exists (to get SHA for update)
+      let sha = null;
+      try {
+        const check = await fetch(`${base}/${path}`, { headers });
+        if (check.ok) { const j = await check.json(); sha = j.sha; }
+      } catch(e) {}
+
+      const body = { message: `Upload ${path}`, content };
+      if (sha) body.sha = sha;
+
+      const res = await fetch(`${base}/${path}`, {
+        method:'PUT', headers, body: JSON.stringify(body)
+      });
+      if (!res.ok) throw new Error(`Failed to upload ${file.name}: ${await res.text()}`);
+      done++;
+    }
+
+    // Update demos.json
+    setProgress('Updating demos registry…', 85);
+    demos.unshift(demo);
+
+    const demosJson   = JSON.stringify(demos.filter(d => !d.builtin), null, 2);
+    const demosB64    = btoa(unescape(encodeURIComponent(demosJson)));
+    let demosSha = null;
+    try {
+      const r = await fetch(`${base}/demos.json`, { headers });
+      if (r.ok) { const j = await r.json(); demosSha = j.sha; }
+    } catch(e) {}
+
+    const dBody = { message:'Update demos.json', content: demosB64 };
+    if (demosSha) dBody.sha = demosSha;
+    await fetch(`${base}/demos.json`, { method:'PUT', headers, body: JSON.stringify(dBody) });
+
+    setProgress('Finalising…', 95);
+    saveDemos();
+
+    setTimeout(() => {
+      setProgress('Published! Netlify deploying…', 100);
+      setTimeout(() => {
+        progWrap.classList.remove('show');
+        publishBtn.disabled = false;
+        showToast(`🚀 "${demo.title}" published! Live in ~30 seconds.`, 'success');
+        resetUploadForm();
+        switchView('demos');
+      }, 1200);
+    }, 600);
+
+  } catch(err) {
+    progWrap.classList.remove('show');
+    publishBtn.disabled = false;
+    showToast('GitHub error: ' + err.message, 'error');
+    console.error(err);
+  }
+}
+
+function readFileAsBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload  = () => res(r.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function resetUploadForm() {
+  uploadedFiles = [];
+  fileList.innerHTML = '';
+  metaForm.style.display = 'none';
+  document.getElementById('uploadActions').style.display = 'none';
+  document.getElementById('mTitle').value = '';
+  document.getElementById('mSlug').value  = '';
+  document.getElementById('mCategory').value = '';
+  document.getElementById('mDesc').value  = '';
+  document.getElementById('mTags').value  = '';
+  document.getElementById('progressWrap').classList.remove('show');
+  document.getElementById('fileInput').value = '';
+  document.getElementById('folderInput').value = '';
+}
+
+document.getElementById('clearUploadBtn').addEventListener('click', resetUploadForm);
+
+/* ── GITHUB CONFIG ── */
+function loadGhConfig() {
+  const s = localStorage.getItem(GH_KEY);
+  return s ? JSON.parse(s) : null;
+}
+
+
+
+function loadGhConfigIntoForm() {
+  const cfg = loadGhConfig();
+  if (!cfg) return;
+  if (cfg.user)   document.getElementById('ghUser').value   = cfg.user;
+  if (cfg.repo)   document.getElementById('ghRepo').value   = cfg.repo;
+  if (cfg.branch) document.getElementById('ghBranch').value = cfg.branch;
+  if (cfg.token)  document.getElementById('ghToken').value  = cfg.token;
+}
+
+document.getElementById('ghSaveBtn').addEventListener('click', () => {
+  const cfg = {
+    user:   document.getElementById('ghUser').value.trim(),
+    repo:   document.getElementById('ghRepo').value.trim(),
+    branch: document.getElementById('ghBranch').value.trim() || 'main',
+    token:  document.getElementById('ghToken').value.trim()
+  };
+  if (!cfg.user || !cfg.repo || !cfg.token) {
+    showGhStatus('Please fill in username, repo, and token.', 'err'); return;
+  }
+  localStorage.setItem(GH_KEY, JSON.stringify(cfg));
+  showGhStatus('✓ Configuration saved!', 'ok');
+  showToast('GitHub config saved.', 'success');
+});
+
+document.getElementById('ghTestBtn').addEventListener('click', async () => {
+  const cfg = loadGhConfig();
+  if (!cfg) { showGhStatus('Save your config first.', 'err'); return; }
+  showGhStatus('Testing connection…', 'info');
+  try {
+    const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}`, {
+      headers:{ 'Authorization': `Bearer ${cfg.token}`, 'Accept':'application/vnd.github.v3+json' }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      showGhStatus(`✓ Connected! Repo: ${data.full_name} (${data.visibility})`, 'ok');
+      showToast('GitHub connected ✓', 'success');
+    } else {
+      const e = await res.json();
+      showGhStatus('✗ ' + (e.message || 'Connection failed'), 'err');
+    }
+  } catch(err) {
+    showGhStatus('✗ Network error: ' + err.message, 'err');
+  }
+});
+
+function showGhStatus(msg, type) {
+  const el = document.getElementById('ghStatus');
+  el.style.display = 'flex';
+  el.className = 'gh-status ' + type;
+  el.innerHTML = `<i class="fas fa-${type==='ok'?'check-circle':type==='err'?'circle-xmark':'circle-info'}"></i> ${msg}`;
+}
+
+/* ── TOAST ── */
+function showToast(msg, type = 'info') {
+  const stack = document.getElementById('toastStack');
+  const t = document.createElement('div');
+  const icons = { success:'circle-check', error:'circle-xmark', info:'circle-info' };
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fas fa-${icons[type]||'circle-info'}"></i><span>${msg}</span>`;
+  stack.appendChild(t);
+  requestAnimationFrame(() => { requestAnimationFrame(() => t.classList.add('show')); });
+  setTimeout(() => {
+    t.classList.add('hide');
+    setTimeout(() => t.remove(), 350);
+  }, 4000);
+}
+
+/* ── LOGOUT ── */
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  window.location.href = 'index.html';
+});
+
+/* ── INIT ── */
+renderTables();
+updateStats();
+
+// Load GH config into form if on that view
+document.querySelector('[data-view="github"]').addEventListener('click', () => {
+  setTimeout(loadGhConfigIntoForm, 50);
+});
+</script>
+</body>
+</html>

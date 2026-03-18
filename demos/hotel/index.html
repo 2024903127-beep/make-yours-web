@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE — A Boutique Luxury Hotel</title>
+  <meta name="description" content="LUMIÈRE — Where every moment becomes a memory. Experience unparalleled luxury at our 4-star boutique hotel." />
+  <meta property="og:title" content="LUMIÈRE Luxury Hotel" />
+  <meta property="og:description" content="Experience unparalleled luxury. Fine dining, spa, rooftop pool & more." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <style>
+    /* =========================================================
+       CSS VARIABLES & RESET
+    ========================================================= */
+    :root {
+      --navy: #0A0F1E;
+      --navy2: #0e1528;
+      --gold: #C9A84C;
+      --gold-light: #e2c97e;
+      --gold-dark: #a0802e;
+      --ivory: #F5F0E8;
+      --ivory2: #ece5d6;
+      --charcoal: #1C1C2E;
+      --white: #ffffff;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Jost', sans-serif;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--ivory);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* =========================================================
+       CUSTOM CURSOR
+    ========================================================= */
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    }
+
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease-out, top 0.12s ease-out, width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
+      opacity: 0.7;
+    }
+
+    body:hover #cursor-dot { opacity: 1; }
+
+    a, button, .service-card, .gallery-item { cursor: none; }
+
+    /* =========================================================
+       LOADER
+    ========================================================= */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--navy);
+      z-index: 99997;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loader.hidden { opacity: 0; visibility: hidden; }
+
+    .loader-logo {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      animation: loaderPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    .loader-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin-top: 1.5rem;
+      animation: loaderLine 2s ease forwards;
+    }
+
+    .loader-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      color: var(--ivory);
+      opacity: 0.5;
+      margin-top: 1rem;
+      text-transform: uppercase;
+    }
+
+    @keyframes loaderPulse {
+      from { opacity: 0.6; text-shadow: 0 0 20px rgba(201,168,76,0.3); }
+      to { opacity: 1; text-shadow: 0 0 60px rgba(201,168,76,0.7); }
+    }
+
+    @keyframes loaderLine {
+      0% { width: 0; }
+      100% { width: 200px; }
+    }
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.8rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.5s ease, padding 0.4s ease, box-shadow 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(10, 15, 30, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1rem 4rem;
+      box-shadow: 0 2px 40px rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      border: none;
+      padding: 0.7rem 1.8rem;
+      transition: background var(--transition), transform 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--ivory);
+      transition: var(--transition);
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 30, 0.97);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: opacity 0.4s, transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .mobile-menu.open { opacity: 1; transform: translateX(0); display: flex; }
+
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--ivory);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* =========================================================
+       HERO SECTION
+    ========================================================= */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Animated gradient mesh background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(28, 28, 46, 0.9) 0%, transparent 70%),
+        linear-gradient(135deg, #030609 0%, #0A0F1E 40%, #0e1a30 70%, #060911 100%);
+      animation: meshShift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes meshShift {
+      0% { filter: hue-rotate(0deg) brightness(1); }
+      50% { filter: hue-rotate(5deg) brightness(1.05); }
+      100% { filter: hue-rotate(-5deg) brightness(0.95); }
+    }
+
+    /* Canvas particles */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      opacity: 0.6;
+    }
+
+    /* Grain texture */
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease 2.8s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 300;
+      line-height: 0.9;
+      color: var(--ivory);
+      margin: 0.5rem 0;
+      overflow: hidden;
+    }
+
+    .hero-title .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100%);
+      animation: charReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      color: var(--ivory);
+      opacity: 0.7;
+      margin: 1.5rem 0 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease 3.5s forwards;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 3.2s forwards;
+    }
+
+    @keyframes charReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 0.7; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 1.1rem 3.2rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: ctaReveal 1s ease 3.8s forwards;
+      transition: color 0.4s;
+    }
+
+    @keyframes ctaReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold-light);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .hero-cta:hover::before { transform: scaleX(1); }
+    .hero-cta span { position: relative; z-index: 1; }
+
+    /* Ripple effect */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transform: scale(0);
+      animation: rippleAnim 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 4.5s forwards;
+    }
+
+    .scroll-indicator span {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      opacity: 0.4;
+    }
+
+    .scroll-arrow {
+      width: 20px; height: 30px;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 10px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .scroll-arrow::after {
+      content: '';
+      width: 3px; height: 6px;
+      background: var(--gold);
+      border-radius: 2px;
+      position: absolute;
+      top: 5px;
+      animation: scrollDot 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollDot {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(12px); opacity: 0; }
+    }
+
+    /* =========================================================
+       SECTION HELPERS
+    ========================================================= */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--ivory);
+    }
+
+    .gold-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+
+    .gold-line.center { margin: 1.5rem auto; }
+
+    .section-sub {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ivory);
+      opacity: 0.6;
+      line-height: 1.9;
+      max-width: 500px;
+    }
+
+    /* =========================================================
+       ABOUT SECTION
+    ========================================================= */
+    #about {
+      background: var(--charcoal);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+      height: 600px;
+      overflow: hidden;
+    }
+
+    .about-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease;
+      transform: scale(1.05);
+    }
+
+    .about-image-wrap:hover img { transform: scale(1); }
+
+    .about-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, transparent 60%);
+    }
+
+    .about-image-border {
+      position: absolute;
+      top: -1.5rem; right: -1.5rem;
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+      border: 1px solid rgba(201,168,76,0.25);
+      pointer-events: none;
+    }
+
+    /* Stats counters */
+    .stats-row {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .stat-item {}
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      opacity: 0.5;
+      margin-top: 0.3rem;
+    }
+
+    /* =========================================================
+       SERVICES SECTION
+    ========================================================= */
+    #services {
+      background: var(--navy);
+      text-align: center;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 4rem;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201,168,76,0.08);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+      transform-style: preserve-3d;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .service-card:hover {
+      background: rgba(201,168,76,0.04);
+      border-color: rgba(201,168,76,0.3);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: block;
+      transition: transform var(--transition);
+    }
+
+    .service-card:hover .service-icon { transform: scale(1.15); }
+
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ivory);
+      margin-bottom: 1rem;
+    }
+
+    .service-desc {
+      font-size: 0.82rem;
+      color: var(--ivory);
+      opacity: 0.5;
+      line-height: 1.8;
+    }
+
+    /* =========================================================
+       GALLERY SECTION
+    ========================================================= */
+    #gallery {
+      background: var(--navy2);
+      padding-bottom: 7rem;
+    }
+
+    .gallery-header { text-align: center; margin-bottom: 4rem; }
+
+    .gallery-grid {
+      columns: 3;
+      column-gap: 12px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 12px;
+      break-inside: avoid;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,15,30,0.85) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-overlay-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--ivory);
+      font-weight: 300;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 18, 0.97);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    #lightbox.open { display: flex; opacity: 1; }
+
+    #lightbox img {
+      max-width: 88vw;
+      max-height: 85vh;
+      object-fit: contain;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 2rem; right: 2.5rem;
+      font-size: 1.5rem;
+      color: var(--ivory);
+      background: none;
+      border: none;
+      opacity: 0.5;
+      font-family: var(--font-body);
+      font-weight: 200;
+      transition: opacity 0.3s;
+    }
+
+    #lightbox-close:hover { opacity: 1; }
+
+    /* =========================================================
+       TESTIMONIALS SECTION
+    ========================================================= */
+    #testimonials {
+      background: var(--charcoal);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .testimonial-track-wrap {
+      overflow: hidden;
+      margin-top: 4rem;
+      position: relative;
+    }
+
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .testimonial-card {
+      min-width: 100%;
+      padding: 0 10%;
+    }
+
+    .t-stars {
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 2rem;
+    }
+
+    .t-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ivory);
+      line-height: 1.6;
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .t-guest {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .t-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+
+    .t-name {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      opacity: 0.6;
+    }
+
+    .t-title-guest {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 0.2rem;
+    }
+
+    .t-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+    }
+
+    .t-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.25);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .t-dot.active { background: var(--gold); transform: scale(1.4); }
+
+    /* =========================================================
+       BOOKING / CONTACT SECTION
+    ========================================================= */
+    #contact {
+      background: var(--navy);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-left {}
+
+    .contact-right {}
+
+    .form-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.15);
+      color: var(--ivory);
+      padding: 1.1rem 1rem 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color var(--transition);
+      -webkit-appearance: none;
+    }
+
+    .form-group select option { background: var(--charcoal); }
+
+    .form-group textarea { min-height: 100px; resize: vertical; }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-label {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      opacity: 0.4;
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus ~ .form-label,
+    .form-group input:not(:placeholder-shown) ~ .form-label,
+    .form-group textarea:focus ~ .form-label,
+    .form-group textarea:not(:placeholder-shown) ~ .form-label {
+      top: 0.35rem;
+      font-size: 0.6rem;
+      color: var(--gold);
+      opacity: 1;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 1.1rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--transition);
+    }
+
+    .btn-submit:hover { background: var(--gold-light); }
+
+    .btn-submit .btn-text { transition: opacity 0.3s; }
+    .btn-submit .btn-loader { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+    .btn-submit .btn-success { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; gap: 0.5rem; }
+
+    .btn-submit.loading .btn-text { opacity: 0; }
+    .btn-submit.loading .btn-loader { opacity: 1; }
+    .btn-submit.success { background: #2a5c3f; color: var(--ivory); }
+    .btn-submit.success .btn-text { opacity: 0; }
+    .btn-submit.success .btn-success { opacity: 1; }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(10,15,30,0.3);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .map-embed {
+      width: 100%;
+      height: 250px;
+      border: 1px solid rgba(201,168,76,0.12);
+      margin-top: 2rem;
+      filter: grayscale(0.8) contrast(1.1) brightness(0.8);
+      transition: filter 0.4s;
+    }
+
+    .map-embed:hover { filter: grayscale(0.3) contrast(1) brightness(1); }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info-item i {
+      color: var(--gold);
+      font-size: 0.85rem;
+      margin-top: 3px;
+    }
+
+    .contact-info-item p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--ivory);
+      opacity: 0.65;
+      line-height: 1.6;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-icon {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ivory);
+      opacity: 0.5;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    footer {
+      background: #050810;
+      padding: 5rem 4rem 2rem;
+      border-top: 1px solid rgba(201,168,76,0.08);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ivory);
+      opacity: 0.4;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.8rem; }
+
+    .footer-col ul a {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ivory);
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.3s, color 0.3s;
+    }
+
+    .footer-col ul a:hover { opacity: 1; color: var(--gold); }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      margin-top: 0.5rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-right: none;
+      color: var(--ivory);
+      padding: 0.8rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .newsletter-form input:focus { border-color: var(--gold); }
+
+    .newsletter-form button {
+      background: var(--gold);
+      border: none;
+      color: var(--navy);
+      padding: 0.8rem 1.2rem;
+      font-size: 0.75rem;
+      transition: background 0.3s;
+    }
+
+    .newsletter-form button:hover { background: var(--gold-light); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.7rem;
+      color: var(--ivory);
+      opacity: 0.25;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.7rem;
+      color: var(--ivory);
+      opacity: 0.25;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: opacity 0.3s;
+    }
+
+    .footer-bottom-links a:hover { opacity: 0.7; }
+
+    /* =========================================================
+       GOLD SECTION DIVIDER
+    ========================================================= */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 0 auto;
+      width: fit-content;
+      padding: 3rem 0;
+    }
+
+    .divider-line {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .divider-line.rev { background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .divider-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 1024px) {
+      nav { padding: 1.5rem 2rem; }
+      nav.scrolled { padding: 0.8rem 2rem; }
+      section { padding: 5rem 2rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap { height: 400px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .gallery-grid { columns: 2; }
+      footer { padding: 3rem 2rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { columns: 1; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-row { flex-wrap: wrap; gap: 2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    /* AOS overrides */
+    [data-aos] { pointer-events: none; }
+    [data-aos].aos-animate { pointer-events: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       PAGE LOADER
+  ========================================================= -->
+  <div id="loader">
+    <div class="loader-logo">LUMIÈRE</div>
+    <div class="loader-line"></div>
+    <p class="loader-subtitle">Boutique Luxury Hotel</p>
+  </div>
+
+  <!-- =========================================================
+       CUSTOM CURSOR
+  ========================================================= -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- =========================================================
+       LIGHTBOX
+  ========================================================= -->
+  <div id="lightbox">
+    <button id="lightbox-close">✕ CLOSE</button>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================= -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">LUMIÈRE</a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#services">Experience</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Reserve</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mob-link">Our Story</a>
+    <a href="#services" class="mob-link">Experience</a>
+    <a href="#gallery" class="mob-link">Gallery</a>
+    <a href="#testimonials" class="mob-link">Reviews</a>
+    <a href="#contact" class="mob-link">Contact</a>
+  </div>
+
+  <!-- =========================================================
+       HERO SECTION
+  ========================================================= -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grain"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Est. 2009 · Paris, France</p>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">Where every moment becomes a memory</p>
+      <a href="#contact" class="hero-cta"><span>Reserve Your Stay</span></a>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       ABOUT SECTION
+  ========================================================= -->
+  <section id="about">
+    <!-- Image Column -->
+    <div class="about-image-wrap" data-aos="fade-right" data-aos-duration="1200">
+      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80" alt="Lumiere Hotel Lobby" />
+      <div class="about-image-overlay"></div>
+      <div class="about-image-border"></div>
+    </div>
+
+    <!-- Text Column -->
+    <div data-aos="fade-left" data-aos-duration="1200" data-aos-delay="150">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">A Legacy of<br /><em>Unparalleled Luxury</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">
+        Nestled in the heart of the city, LUMIÈRE was born from a singular obsession: to create spaces where beauty and comfort are inseparable. Every detail — from hand-stitched linens to curated art — reflects our devotion to the extraordinary.
+      </p>
+      <p class="section-sub" style="margin-top:1rem;">
+        Our 200 rooms and suites are sanctuaries of calm, our kitchens led by Michelin-starred talent, and our staff trained in the rare art of anticipating desire before it is spoken.
+      </p>
+
+      <!-- Stat Counters -->
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num" data-target="200">0</div>
+          <div class="stat-label">Luxury Rooms</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="15">0</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="98">0</div>
+          <div class="stat-label">% Guest Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="12">0</div>
+          <div class="stat-label">Awards Won</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SERVICES SECTION
+  ========================================================= -->
+  <section id="services">
+    <p class="section-label" data-aos="fade-up">The LUMIÈRE Experience</p>
+    <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Curated for the<br /><em>Discerning Guest</em></h2>
+    <div class="gold-line center" data-aos="fade-up" data-aos-delay="150"></div>
+
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+        <i class="fa-solid fa-utensils service-icon"></i>
+        <h3 class="service-title">Fine Dining</h3>
+        <p class="service-desc">Two Michelin-starred cuisine crafted from locally-sourced seasonal ingredients. An evening at LUMIÈRE's restaurant is a journey in itself.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fa-solid fa-spa service-icon"></i>
+        <h3 class="service-title">Spa & Wellness</h3>
+        <p class="service-desc">A 3,000 sq ft sanctuary offering ancient healing rituals, bespoke therapies, and restorative treatments curated by world-class therapists.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <i class="fa-solid fa-water-ladder service-icon"></i>
+        <h3 class="service-title">Rooftop Pool</h3>
+        <p class="service-desc">Infinity-edge rooftop pool with panoramic city views. Sunbeds, cocktails, and the sky stretching endlessly — the perfect urban escape.</p>
+      </div>
+      <!-- Card 4 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="50">
+        <i class="fa-solid fa-champagne-glasses service-icon"></i>
+        <h3 class="service-title">Event Spaces</h3>
+        <p class="service-desc">From intimate gatherings to grand celebrations — our versatile event spaces accommodate up to 800 guests with state-of-the-art AV facilities.</p>
+      </div>
+      <!-- Card 5 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+        <i class="fa-solid fa-concierge-bell service-icon"></i>
+        <h3 class="service-title">24hr Concierge</h3>
+        <p class="service-desc">Our dedicated concierge team is available around the clock to arrange transfers, reservations, private tours, and the seemingly impossible.</p>
+      </div>
+      <!-- Card 6 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+        <i class="fa-solid fa-bed service-icon"></i>
+        <h3 class="service-title">Luxury Suites</h3>
+        <p class="service-desc">Each suite is a private world — panoramic windows, Italian marble baths, and curated art collections that redefine what it means to feel at home.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       GALLERY SECTION
+  ========================================================= -->
+  <section id="gallery">
+    <div class="gallery-header">
+      <p class="section-label" data-aos="fade-up">Visual Story</p>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Captured<br /><em>Moments</em></h2>
+      <div class="gold-line center" data-aos="fade-up" data-aos-delay="150"></div>
+    </div>
+
+    <div class="gallery-grid" data-aos="fade-up" data-aos-delay="200">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" alt="Grand Suite" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Grand Suite</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine Dining" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Fine Dining</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa Ritual" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Spa Ritual</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80" alt="Rooftop Pool" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Rooftop Pool</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Penthouse View" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Penthouse View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="Presidential Suite" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Presidential Suite</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&q=80" alt="Cocktail Lounge" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Cocktail Lounge</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?w=600&q=80" alt="Morning Breakfast" />
+        <div class="gallery-overlay"><span class="gallery-overlay-title">Morning Breakfast</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TESTIMONIALS
+  ========================================================= -->
+  <section id="testimonials">
+    <p class="section-label" data-aos="fade-up">Guest Voices</p>
+    <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Stories from<br /><em>Our Guests</em></h2>
+    <div class="gold-line center" data-aos="fade-up" data-aos-delay="150"></div>
+
+    <div class="testimonial-track-wrap" id="tWrap">
+      <div class="testimonial-track" id="tTrack">
+
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"LUMIÈRE redefined what hospitality means to me. Every corner breathes elegance, every staff member anticipates your needs before you voice them."</p>
+          <div class="t-guest">
+            <img class="t-avatar" src="https://i.pravatar.cc/100?img=47" alt="Guest" />
+            <div>
+              <div class="t-name">Isabelle Fontaine</div>
+              <div class="t-title-guest">Travel Editor, Condé Nast</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"The rooftop suite at sunset, the spa at dawn — I have stayed at hotels on five continents, and nothing compares to the quiet magic of LUMIÈRE."</p>
+          <div class="t-guest">
+            <img class="t-avatar" src="https://i.pravatar.cc/100?img=12" alt="Guest" />
+            <div>
+              <div class="t-name">James Whitmore</div>
+              <div class="t-title-guest">Luxury Travel Blogger</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Our wedding weekend at LUMIÈRE was beyond perfection. The event team transformed our vision into something even more beautiful than we imagined."</p>
+          <div class="t-guest">
+            <img class="t-avatar" src="https://i.pravatar.cc/100?img=32" alt="Guest" />
+            <div>
+              <div class="t-name">Priya & Arjun Mehta</div>
+              <div class="t-title-guest">Honeymooners, Mumbai</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="t-dots" id="tDots">
+      <div class="t-dot active"></div>
+      <div class="t-dot"></div>
+      <div class="t-dot"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CONTACT / BOOKING SECTION
+  ========================================================= -->
+  <section id="contact">
+    <!-- Left: Info -->
+    <div data-aos="fade-right" data-aos-duration="1000">
+      <p class="section-label">Reservations</p>
+      <h2 class="section-title">Begin Your<br /><em>Journey</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub" style="margin-bottom:2.5rem;">We would be honoured to welcome you. Please complete the form or reach out directly — our reservations team responds within the hour.</p>
+
+      <div class="contact-info-item">
+        <i class="fa-solid fa-location-dot"></i>
+        <p>12 Rue de la Paix, 75001 Paris, France</p>
+      </div>
+      <div class="contact-info-item">
+        <i class="fa-solid fa-phone"></i>
+        <p>+33 1 42 60 32 80</p>
+      </div>
+      <div class="contact-info-item">
+        <i class="fa-solid fa-envelope"></i>
+        <p>reservations@lumiere-hotel.com</p>
+      </div>
+
+      <div class="social-row">
+        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-tripadvisor"></i></a>
+      </div>
+
+      <!-- Map -->
+      <iframe
+        class="map-embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.142047342144!2d2.329867315674!3d48.86938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sPlace%20Vend%C3%B4me%2C%2075001%20Paris%2C%20France!5e0!3m2!1sen!2sfr!4v1678901234567!5m2!1sen!2sfr"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Hotel Location">
+      </iframe>
+    </div>
+
+    <!-- Right: Form -->
+    <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="150">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" id="fname" placeholder=" " />
+          <label class="form-label" for="fname">First Name</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="lname" placeholder=" " />
+          <label class="form-label" for="lname">Last Name</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" placeholder=" " />
+        <label class="form-label" for="email">Email Address</label>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="date" id="checkin" placeholder=" " />
+          <label class="form-label" for="checkin" style="top:0.35rem;font-size:0.6rem;color:var(--gold);opacity:1;">Check-in</label>
+        </div>
+        <div class="form-group">
+          <input type="date" id="checkout" placeholder=" " />
+          <label class="form-label" for="checkout" style="top:0.35rem;font-size:0.6rem;color:var(--gold);opacity:1;">Check-out</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <select id="suite">
+          <option value="">Select Suite Type</option>
+          <option>Deluxe Room</option>
+          <option>Junior Suite</option>
+          <option>Grand Suite</option>
+          <option>Penthouse Suite</option>
+          <option>Presidential Suite</option>
+        </select>
+        <label class="form-label" for="suite" style="top:0.35rem;font-size:0.6rem;color:var(--gold);opacity:1;">Suite Type</label>
+      </div>
+      <div class="form-group">
+        <textarea id="requests" placeholder=" "></textarea>
+        <label class="form-label" for="requests">Special Requests</label>
+      </div>
+
+      <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+        <span class="btn-text">Check Availability</span>
+        <span class="btn-loader"><div class="spinner"></div></span>
+        <span class="btn-success"><i class="fa-solid fa-check"></i> Reservation Confirmed</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer>
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div>
+        <a href="#hero" class="footer-logo">LUMIÈRE</a>
+        <p class="footer-desc">A sanctuary of luxury and elegance in the heart of Paris. Where every detail is a gesture of care, and every stay becomes a cherished memory.</p>
+        <div class="social-row">
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-tripadvisor"></i></a>
+        </div>
+      </div>
+
+      <!-- Navigate -->
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#services">Experience</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Experiences -->
+      <div class="footer-col">
+        <h4>Experiences</h4>
+        <ul>
+          <li><a href="#">Fine Dining</a></li>
+          <li><a href="#">Spa & Wellness</a></li>
+          <li><a href="#">Rooftop Pool</a></li>
+          <li><a href="#">Weddings</a></li>
+          <li><a href="#">Meetings</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="footer-col">
+        <h4>Stay Connected</h4>
+        <p style="font-size:0.78rem;opacity:0.4;line-height:1.8;margin-bottom:1rem;">Receive exclusive offers and invitations to private events.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email" id="newsletterEmail" />
+          <button onclick="subscribeNewsletter()"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <p id="newsletterMsg" style="font-size:0.7rem;color:var(--gold);margin-top:0.6rem;opacity:0;transition:opacity 0.4s;"></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 LUMIÈRE Boutique Hotel. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+    // =========================================================
+    // LOADER
+    // =========================================================
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+        initHeroTitle();
+      }, 2400);
+    });
+
+    // =========================================================
+    // AOS INIT
+    // =========================================================
+    AOS.init({
+      duration: 900,
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      once: true,
+      offset: 60
+    });
+
+    // =========================================================
+    // CUSTOM CURSOR
+    // =========================================================
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top = mouseY + 'px';
+      ring.style.left = mouseX + 'px';
+      ring.style.top = mouseY + 'px';
+    });
+
+    document.querySelectorAll('a, button, .service-card, .gallery-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.style.width = '14px'; dot.style.height = '14px';
+        ring.style.width = '52px'; ring.style.height = '52px';
+        ring.style.borderColor = 'var(--gold-light)';
+        ring.style.opacity = '1';
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.style.width = '8px'; dot.style.height = '8px';
+        ring.style.width = '36px'; ring.style.height = '36px';
+        ring.style.borderColor = 'var(--gold)';
+        ring.style.opacity = '0.7';
+      });
+    });
+
+    // =========================================================
+    // HERO TITLE LETTER ANIMATION
+    // =========================================================
+    function initHeroTitle() {
+      const text = 'LUMIÈRE';
+      const container = document.getElementById('heroTitle');
+      container.innerHTML = '';
+      [...text].forEach((char, i) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.animationDelay = (i * 0.08 + 0.2) + 's';
+        container.appendChild(span);
+      });
+    }
+
+    // =========================================================
+    // HERO CANVAS PARTICLES
+    // =========================================================
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3 - 0.1;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.gold = Math.random() > 0.7;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.y < -5 || this.x < -5 || this.x > canvas.width + 5) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.gold
+          ? `rgba(201, 168, 76, ${this.opacity})`
+          : `rgba(245, 240, 232, ${this.opacity * 0.4})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+
+    // =========================================================
+    // NAVBAR SCROLL
+    // =========================================================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // =========================================================
+    // HAMBURGER MENU
+    // =========================================================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        mobileMenu.style.display = 'none';
+      } else {
+        mobileMenu.style.display = 'flex';
+        requestAnimationFrame(() => mobileMenu.classList.add('open'));
+      }
+    });
+
+    document.querySelectorAll('.mob-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+      });
+    });
+
+    // =========================================================
+    // HERO CTA RIPPLE
+    // =========================================================
+    document.querySelector('.hero-cta').addEventListener('click', function(e) {
+      const ripple = document.createElement('div');
+      ripple.className = 'ripple';
+      const rect = this.getBoundingClientRect();
+      ripple.style.width = ripple.style.height = '80px';
+      ripple.style.left = (e.clientX - rect.left - 40) + 'px';
+      ripple.style.top = (e.clientY - rect.top - 40) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+    });
+
+    // =========================================================
+    // COUNTER ANIMATION
+    // =========================================================
+    function animateCounter(el) {
+      const target = parseInt(el.getAttribute('data-target'));
+      const suffix = el.closest('.stat-item').querySelector('.stat-label').textContent.includes('%') ? '%' : '+';
+      let start = 0;
+      const duration = 1800;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      };
+      requestAnimationFrame(step);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('[data-target]').forEach(animateCounter);
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.querySelector('.stats-row');
+    if (statsSection) statsObserver.observe(statsSection);
+
+    // =========================================================
+    // SERVICE CARD 3D TILT
+    // =========================================================
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // =========================================================
+    // LIGHTBOX
+    // =========================================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(item) {
+      const img = item.querySelector('img');
+      lightboxImg.src = img.src.replace(/w=\d+/, 'w=1200');
+      lightboxImg.alt = img.alt;
+      lightbox.style.display = 'flex';
+      requestAnimationFrame(() => lightbox.classList.add('open'));
+    }
+
+    document.getElementById('lightbox-close').addEventListener('click', () => {
+      lightbox.classList.remove('open');
+      setTimeout(() => { lightbox.style.display = 'none'; }, 400);
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('open');
+        setTimeout(() => { lightbox.style.display = 'none'; }, 400);
+      }
+    });
+
+    // =========================================================
+    // TESTIMONIALS CAROUSEL
+    // =========================================================
+    const track = document.getElementById('tTrack');
+    const dots = document.querySelectorAll('.t-dot');
+    let currentSlide = 0;
+    let autoplay;
+
+    function goToSlide(n) {
+      currentSlide = n;
+      track.style.transform = `translateX(-${n * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === n));
+    }
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { goToSlide(i); resetAutoplay(); }));
+
+    function resetAutoplay() {
+      clearInterval(autoplay);
+      autoplay = setInterval(() => goToSlide((currentSlide + 1) % 3), 5000);
+    }
+
+    resetAutoplay();
+
+    const tWrap = document.getElementById('tWrap');
+    tWrap.addEventListener('mouseenter', () => clearInterval(autoplay));
+    tWrap.addEventListener('mouseleave', resetAutoplay);
+
+    // =========================================================
+    // BOOKING FORM SUBMIT
+    // =========================================================
+    function handleSubmit() {
+      const btn = document.getElementById('submitBtn');
+      if (btn.classList.contains('success')) return;
+      btn.classList.add('loading');
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.classList.add('success');
+        btn.innerHTML = `<span class="btn-success" style="opacity:1;position:relative;display:flex;align-items:center;justify-content:center;gap:.5rem;"><i class="fa-solid fa-check"></i> Reservation Confirmed</span>`;
+      }, 2200);
+    }
+
+    // =========================================================
+    // NEWSLETTER
+    // =========================================================
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletterEmail').value;
+      const msg = document.getElementById('newsletterMsg');
+      if (email && email.includes('@')) {
+        msg.textContent = '✓ You\'re on the list. Welcome to LUMIÈRE.';
+        msg.style.opacity = '1';
+        document.getElementById('newsletterEmail').value = '';
+      } else {
+        msg.textContent = 'Please enter a valid email.';
+        msg.style.opacity = '1';
+        msg.style.color = '#e07070';
+      }
+      setTimeout(() => { msg.style.opacity = '0'; }, 3500);
+    }
+
+    // Newsletter enter key
+    document.getElementById('newsletterEmail').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') subscribeNewsletter();
+    });
+
+    // =========================================================
+    // SMOOTH SCROLL FOR NAV LINKS
+    // =========================================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
