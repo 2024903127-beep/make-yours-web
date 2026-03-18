@@ -1,0 +1,42 @@
+{
+  "temples": [
+    { "id": 1, "name": "ISKCON Mumbai", "address": "Hare Krishna Land, Juhu, Mumbai", "lat": 19.1075, "lng": 72.8263, "phone": "+91-22-26206860", "timings": "4:30 AM - 9:00 PM", "rating": 4.9 },
+    { "id": 2, "name": "ISKCON Delhi", "address": "Sant Nagar, East of Kailash, New Delhi", "lat": 28.5494, "lng": 77.2437, "phone": "+91-11-26234942", "timings": "4:30 AM - 9:00 PM", "rating": 4.8 },
+    { "id": 3, "name": "ISKCON Vrindavan", "address": "Bhaktivedanta Swami Marg, Vrindavan", "lat": 27.5706, "lng": 77.6721, "phone": "+91-565-2540021", "timings": "4:30 AM - 9:00 PM", "rating": 5.0 },
+    { "id": 4, "name": "ISKCON Bangalore", "address": "Hare Krishna Hill, Rajaji Nagar, Bangalore", "lat": 12.9891, "lng": 77.5553, "phone": "+91-80-23471956", "timings": "4:30 AM - 9:00 PM", "rating": 4.9 },
+    { "id": 5, "name": "ISKCON Kolkata", "address": "3C Albert Road, Kolkata", "lat": 22.5408, "lng": 88.3489, "phone": "+91-33-22872777", "timings": "4:30 AM - 9:00 PM", "rating": 4.7 }
+  ],
+  "categories": [
+    { "id": 1, "name": "Prasadam Thali", "icon": "🍱", "description": "Complete blessed meal offerings" },
+    { "id": 2, "name": "Satvik Lunch", "icon": "🥘", "description": "Pure vegetarian afternoon meals" },
+    { "id": 3, "name": "Ekadashi Meals", "icon": "🌿", "description": "Special fasting day preparations" },
+    { "id": 4, "name": "Temple Sweets", "icon": "🍬", "description": "Handmade sacred confections" },
+    { "id": 5, "name": "Festival Specials", "icon": "🪔", "description": "Festive occasion delicacies" }
+  ],
+  "menu": [
+    { "id": 1, "categoryId": 1, "name": "Maha Prasadam Thali", "description": "Complete thali with 2 sabzis, dal, rice, roti, raita, papad, and kheer — offered to Lord Krishna", "price": 180, "image": "thali1", "badge": "Bestseller", "veg": true, "spiceLevel": "mild" },
+    { "id": 2, "categoryId": 1, "name": "Ekadashi Thali", "description": "Special fasting thali with sabudana khichdi, sendha namak preparations, fruits and falahaar", "price": 160, "image": "thali2", "badge": "Ekadashi", "veg": true, "spiceLevel": "mild" },
+    { "id": 3, "categoryId": 1, "name": "Janmashtami Thali", "description": "Festive thali prepared on auspicious occasions with panchamrit and special bhog items", "price": 220, "image": "thali3", "badge": "Festival", "veg": true, "spiceLevel": "mild" },
+    { "id": 4, "categoryId": 2, "name": "Satvik Dal Rice", "description": "Simple pure dal chawal with ghee, cooked without onion-garlic in the temple tradition", "price": 120, "image": "dalrice", "badge": null, "veg": true, "spiceLevel": "mild" },
+    { "id": 5, "categoryId": 2, "name": "Paneer Sabzi & Roti", "description": "Fresh paneer cooked in tomato-based masala, served with soft whole wheat rotis", "price": 150, "image": "paneer", "badge": "Popular", "veg": true, "spiceLevel": "medium" },
+    { "id": 6, "categoryId": 2, "name": "Khichdi Prasadam", "description": "The sacred khichdi of Jagannath, cooked in earthen pots with pure ghee and temple spices", "price": 110, "image": "khichdi", "badge": "Temple Special", "veg": true, "spiceLevel": "mild" },
+    { "id": 7, "categoryId": 3, "name": "Sabudana Khichdi", "description": "Light and nutritious sago pearls with peanuts, cooked in pure ghee — perfect for Ekadashi", "price": 100, "image": "sabudana", "badge": "Ekadashi", "veg": true, "spiceLevel": "mild" },
+    { "id": 8, "categoryId": 3, "name": "Makhana Kheer", "description": "Fox nut kheer slow-cooked in full cream milk with cardamom, saffron and dry fruits", "price": 90, "image": "makhana", "badge": null, "veg": true, "spiceLevel": "none" },
+    { "id": 9, "categoryId": 3, "name": "Aloo Sendha Namak", "description": "Satvik potatoes cooked in rock salt and pure ghee, a staple Ekadashi preparation", "price": 80, "image": "aloo", "badge": null, "veg": true, "spiceLevel": "mild" },
+    { "id": 10, "categoryId": 4, "name": "Ladoo Prasadam", "description": "The legendary besan ladoos of ISKCON, offered to Radha-Krishna and then distributed as prasadam", "price": 60, "image": "ladoo", "badge": "Divine", "veg": true, "spiceLevel": "none" },
+    { "id": 11, "categoryId": 4, "name": "Panchamrit", "description": "Sacred mixture of milk, curd, ghee, honey, and sugar — used in abhishek rituals", "price": 50, "image": "panchamrit", "badge": "Sacred", "veg": true, "spiceLevel": "none" },
+    { "id": 12, "categoryId": 4, "name": "Mathura Peda", "description": "Soft milk-based sweets from the land of Krishna, made with pure khoya and cardamom", "price": 80, "image": "peda", "badge": "Mathura Special", "veg": true, "spiceLevel": "none" },
+    { "id": 13, "categoryId": 5, "name": "Janmashtami Bhog", "description": "56 item bhog prepared on the auspicious birthday of Lord Krishna — a divine feast", "price": 350, "image": "janmashtami", "badge": "Festival", "veg": true, "spiceLevel": "mild" },
+    { "id": 14, "categoryId": 5, "name": "Holi Special Thandai", "description": "Traditional chilled thandai with almonds, rose petals, cardamom and milk", "price": 70, "image": "thandai", "badge": "Holi Special", "veg": true, "spiceLevel": "none" },
+    { "id": 15, "categoryId": 5, "name": "Diwali Mithai Box", "description": "Assorted temple sweets — kaju katli, barfi, besan ladoo packed in an auspicious gift box", "price": 250, "image": "mithai", "badge": "Diwali", "veg": true, "spiceLevel": "none" }
+  ],
+  "orders": [
+    { "id": "KP2024001", "customer": "Radha Sharma", "items": [{"menuId": 1, "qty": 2}, {"menuId": 10, "qty": 4}], "total": 600, "status": "delivered", "address": "123 Vrindavan Colony, Delhi", "time": "2024-01-15T12:30:00Z" },
+    { "id": "KP2024002", "customer": "Govind Patel", "items": [{"menuId": 6, "qty": 1}, {"menuId": 8, "qty": 2}], "total": 290, "status": "preparing", "address": "45 Gokul Nagar, Mumbai", "time": "2024-01-15T13:00:00Z" }
+  ],
+  "donations": [
+    { "id": 1, "name": "Annadaan - Feed the Needy", "description": "Sponsor a complete meal for someone in need. ₹50 feeds one person.", "target": 100000, "raised": 67500, "icon": "🍽️" },
+    { "id": 2, "name": "Temple Kitchen Support", "description": "Help maintain and upgrade ISKCON temple kitchens across India.", "target": 500000, "raised": 234000, "icon": "🏛️" },
+    { "id": 3, "name": "Go-Seva (Cow Protection)", "description": "Support temple cows that provide pure milk for prasadam preparations.", "target": 200000, "raised": 89000, "icon": "🐄" }
+  ]
+}
