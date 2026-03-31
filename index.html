@@ -422,44 +422,14 @@
 <!-- ═══ SCRIPTS — ORDER MATTERS ═══ -->
 <script src="script.js"></script>
 
-<!-- DYNAMIC DEMO INJECTOR
-     MUST run AFTER script.js (so _mywObserver exists).
-     Tries demos.json first (GitHub/Netlify — works across all browsers/devices).
-     Falls back to localStorage (works when testing locally). -->
 <script>
-(function(){
-  var DEMOS_KEY='myw_demos';
-  function h2r(h){var r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);return r?parseInt(r[1],16)+','+parseInt(r[2],16)+','+parseInt(r[3],16):null;}
-  function card(d,i){
-    var hex=d.color||'#6c63ff',rgb=h2r(hex);
-    var a1=rgb?'rgba('+rgb+',.1)':'rgba(108,99,255,.1)';
-    var a2=rgb?'rgba('+rgb+',.2)':'rgba(108,99,255,.2)';
-    var a3=rgb?'rgba('+rgb+',.3)':'rgba(108,99,255,.3)';
-    var el=document.createElement('div');
-    el.className='demo-card fade-up';el.setAttribute('data-d',i%3);el.setAttribute('data-cat',d.category||'');
-    el.innerHTML='<a href="'+d.slug+'/index.html" target="_blank" class="demo-preview" style="--bg1:#060912;--bg2:#0b1020;--ac:'+hex+'"><div class="dp-browser"><div class="dp-bar"><span></span><span></span><span></span></div><div class="dp-screen"><div class="dp-nav" style="background:'+a1+';border-color:'+a2+'"><div class="dp-logo" style="color:'+hex+'">'+((d.title||'').toUpperCase().substring(0,14))+'</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div><div class="dp-hero" style="background:linear-gradient(135deg,#060912,#0f1830)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:'+hex+'">'+((d.category||'').toUpperCase())+'</div><div class="dp-h-title" style="color:#e8eaf6">'+(d.title||'')+'</div><div class="dp-h-btn" style="background:'+hex+';color:#fff">View Demo</div></div><div class="dp-hero-deco" style="border-color:'+a3+'"></div></div><div class="dp-cards"><div class="dp-c" style="background:'+a1+';border-color:'+a2+'"><div class="dp-c-bar" style="background:'+hex+'"></div><div class="dp-c-bar" style="width:60%;background:'+a3+'"></div></div><div class="dp-c" style="background:'+a1+';border-color:'+a2+'"><div class="dp-c-bar" style="background:'+hex+'"></div><div class="dp-c-bar" style="width:42%;background:'+a3+'"></div></div><div class="dp-c" style="background:'+a1+';border-color:'+a2+'"><div class="dp-c-bar" style="background:'+hex+'"></div><div class="dp-c-bar" style="width:68%;background:'+a3+'"></div></div></div></div></div><div class="demo-hover-cta">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a><div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:'+hex+';--tb:'+a1+'">'+(d.category||'Custom')+'</span><span class="di-live">● Live</span></div><h4>'+(d.title||'')+'</h4><p>'+(d.desc||'A custom website demo.')+'</p><a href="'+d.slug+'/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>';
-    return el;
+// MASTER HOME PAGE INITIALIZER
+document.addEventListener('DOMContentLoaded', function() {
+  // Load top 6 demos for the landing page grid
+  if (window._myw_loadDemos) {
+    window._myw_loadDemos('demoGrid', 6);
   }
-  function inject(list){
-    var grid=document.getElementById('demoGrid');
-    if(!grid||!list||!list.length)return;
-    var toAdd=list.filter(function(d){return !d.builtin&&d.status==='live';});
-    if(!toAdd.length)return;
-    toAdd.forEach(function(d,i){grid.appendChild(card(d,i));});
-    if(window._mywObserver){grid.querySelectorAll('.fade-up:not(.in)').forEach(function(el){window._mywObserver.observe(el);});}
-    // Re-run active filter
-    var af=document.querySelector('.df-btn.active');
-    if(af&&af.dataset.filter!=='all')af.click();
-  }
-  // 1) Try demos.json — the file we push to GitHub, works on Netlify across all devices
-  fetch('demos.json')
-    .then(function(r){return r.ok?r.json():Promise.reject();})
-    .then(function(data){if(Array.isArray(data)&&data.length)inject(data);})
-    .catch(function(){
-      // 2) Fallback to localStorage for local testing
-      try{var s=localStorage.getItem(DEMOS_KEY);if(s)inject(JSON.parse(s));}catch(e){}
-    });
-})();
+});
 </script>
 
 <!-- CATEGORY FILTER -->

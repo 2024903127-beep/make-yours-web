@@ -374,31 +374,50 @@ window._myw_loadDemos = async function (containerId, limit = 0) {
   function createCard(d) {
     const hex = d.color || '#7c3aed';
     const rgb = h2r(hex);
-    const a1 = rgb ? `rgba(${rgb},.1)` : 'rgba(124,58,237,.1)';
+    const a1 = rgb ? `rgba(${rgb},.08)` : 'rgba(124,58,237,.08)';
+    const a2 = rgb ? `rgba(${rgb},.15)` : 'rgba(124,58,237,.15)';
     const link = d.externalUrl || (d.slug ? (d.slug.startsWith('demos/') ? d.slug : 'demos/' + d.slug) + '/index.html' : '#');
     
     const card = document.createElement('div');
     card.className = 'demo-card fade-up';
+    card.dataset.cat = d.category || '';
+    card.style.setProperty('--card-ac', hex);
+    card.style.setProperty('--card-ac-rgb', rgb);
+
     card.innerHTML = `
-      <a href="${link}" target="_blank" class="demo-preview">
-        <div class="dp-browser">
-          <div class="dp-bar"><span></span><span></span><span></span></div>
-          <div class="dp-screen" style="background:#03050c">
-            <div class="dp-placeholder" style="color:${hex};">
-              <i class="fas fa-desktop" style="font-size:2rem;margin-bottom:1rem;display:block;"></i>
-              <span style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;">${d.title}</span>
+      <div class="card-inner">
+        <a href="${link}" target="_blank" class="demo-preview">
+          <div class="dp-browser">
+            <div class="dp-bar"><span></span><span></span><span></span></div>
+            <div class="dp-screen" style="background:radial-gradient(circle at top right, rgba(${rgb},0.05), #03050c 70%)">
+              <div class="dp-header-strip" style="background:rgba(${rgb},0.1); border-bottom:1px solid rgba(${rgb},0.2)"></div>
+              <div class="dp-placeholder">
+                <div class="dp-icon-box" style="background:rgba(${rgb},0.12); color:${hex}; border:1px solid rgba(${rgb},0.3)">
+                  <i class="fas fa-desktop"></i>
+                </div>
+                <div class="dp-title-strip">${d.title}</div>
+                <div class="dp-sub-strip">India's Premiere Web Template</div>
+              </div>
             </div>
           </div>
+          <div class="demo-hover-cta">
+            <div class="cta-pulse" style="background:${hex}"></div>
+            <span>View Live Demo <i class="fa fa-external-link-alt"></i></span>
+          </div>
+          <div class="premium-badge"><i class="fas fa-crown"></i> ELITE</div>
+        </a>
+        <div class="demo-info">
+          <div class="di-row">
+            <span class="di-tag" style="--tc:${hex};--tb:${a1}">${d.category || 'Business'}</span>
+            <span class="di-status">Standard V.2</span>
+          </div>
+          <h4>${d.title}</h4>
+          <p>${d.desc || 'Premium business ecosystem with full modern features.'}</p>
+          <div class="di-footer">
+             <a href="${link}" target="_blank" class="di-link">Explore Site <i class="fa fa-arrow-right"></i></a>
+             <div class="di-tech"><i class="fab fa-html5"></i><i class="fab fa-js"></i></div>
+          </div>
         </div>
-        <div class="demo-hover-cta">Open Live Demo <i class="fa fa-external-link-alt"></i></div>
-      </a>
-      <div class="demo-info">
-        <div class="di-row">
-          <span class="di-tag" style="--tc:${hex};--tb:${a1}">${d.category || 'Business'}</span>
-        </div>
-        <h4>${d.title}</h4>
-        <p>${d.desc || 'A premium business website demo.'}</p>
-        <a href="${link}" target="_blank" class="di-link">View Demo <i class="fa fa-arrow-right"></i></a>
       </div>
     `;
     return card;

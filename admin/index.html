@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root{
-      --bg:#060912;--bg2:#080d1a;
+      --bg:#03050c;--bg2:#060a14;
       --acc:#6c63ff;--acc2:#ff6584;--acc3:#43e97b;
-      --glass:rgba(255,255,255,.035);
+      --glass:rgba(255,255,255,.015);
       --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
       --text:#e8eaf6;--muted:#6b7394;
       --fh:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
@@ -179,14 +179,22 @@
 
       <div class="lf-error" id="lfError">
         <i class="fas fa-exclamation-circle"></i>
-        <span id="lfErrorMsg">Incorrect password. Try again.</span>
+        <span id="lfErrorMsg">Invalid credentials.</span>
+      </div>
+
+      <div class="lf-group">
+        <label for="adminEmail">Email Address</label>
+        <div class="lf-input-wrap">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="adminEmail" placeholder="your@email.com" autocomplete="email"/>
+        </div>
       </div>
 
       <div class="lf-group">
         <label for="adminPass">Password</label>
         <div class="lf-input-wrap">
           <i class="fas fa-lock"></i>
-          <input type="password" id="adminPass" placeholder="Enter admin password" autocomplete="current-password"/>
+          <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password"/>
           <button class="pwd-toggle" type="button" id="pwdToggle" aria-label="Toggle password visibility">
             <i class="fas fa-eye" id="pwdIcon"></i>
           </button>
@@ -204,70 +212,66 @@
     </div>
   </div>
 
+  <!-- Load Supabase Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // ── CONFIG ──
-    // Change this password to whatever you want!
-    const ADMIN_PASSWORD = 'makeyourweb2025';
-    const SESSION_KEY    = 'myw_admin_auth';
-
-    // If already logged in, go straight to dashboard
-    if (sessionStorage.getItem(SESSION_KEY) === 'true') {
-      window.location.href = 'dashboard.html';
-    }
+    const SUPABASE_URL = 'https://mfcievzvojupgxqagmgb.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mY2lldnp2b2p1cGd4cWFnbWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5ODExNzAsImV4cCI6MjA5MDU1NzE3MH0.ADduOhtH8NWJ2DrNWIw0YyiaKobwZyk5pQ_-uK00Hw0';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const btn      = document.getElementById('loginBtn');
-    const input    = document.getElementById('adminPass');
+    const emailIn  = document.getElementById('adminEmail');
+    const passIn   = document.getElementById('adminPass');
     const errBox   = document.getElementById('lfError');
     const errMsg   = document.getElementById('lfErrorMsg');
     const pwdToggle= document.getElementById('pwdToggle');
     const pwdIcon  = document.getElementById('pwdIcon');
 
-    // Toggle password visibility
+    // If already logged in, check session
+    (async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) window.location.href = 'dashboard.html';
+    })();
+
+    // Toggle password
     pwdToggle.addEventListener('click', () => {
-      const isText = input.type === 'text';
-      input.type = isText ? 'password' : 'text';
+      const isText = passIn.type === 'text';
+      passIn.type = isText ? 'password' : 'text';
       pwdIcon.className = isText ? 'fas fa-eye' : 'fas fa-eye-slash';
     });
 
-    // Login
-    function doLogin() {
+    async function doLogin() {
       errBox.classList.remove('show');
-      const val = input.value.trim();
+      const email = emailIn.value.trim();
+      const pass  = passIn.value.trim();
 
-      if (!val) {
-        errMsg.textContent = 'Please enter your password.';
+      if (!email || !pass) {
+        errMsg.textContent = 'Please enter both email and password.';
         errBox.classList.add('show');
-        input.focus();
         return;
       }
 
       btn.classList.add('loading');
 
-      setTimeout(() => {
-        if (val === ADMIN_PASSWORD) {
-          sessionStorage.setItem(SESSION_KEY, 'true');
-          window.location.href = 'dashboard.html';
-        } else {
-          btn.classList.remove('loading');
-          errMsg.textContent = 'Incorrect password. Please try again.';
-          errBox.classList.add('show');
-          input.value = '';
-          input.focus();
-          // Shake animation
-          input.style.animation = 'none';
-          input.offsetHeight; // reflow
-          input.style.animation = 'shake .4s ease';
-        }
-      }, 700);
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: pass,
+      });
+
+      if (data.session) {
+        window.location.href = 'dashboard.html';
+      } else {
+        btn.classList.remove('loading');
+        errMsg.textContent = error ? error.message : 'Login failed. Check your credentials.';
+        errBox.classList.add('show');
+        passIn.value = '';
+        passIn.focus();
+      }
     }
 
     btn.addEventListener('click', doLogin);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-
-    // Shake keyframe
-    const style = document.createElement('style');
-    style.textContent = '@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}';
-    document.head.appendChild(style);
+    [emailIn, passIn].forEach(i => i.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); }));
   </script>
 </body>
 </html>

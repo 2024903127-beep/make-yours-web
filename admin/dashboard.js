@@ -7,18 +7,20 @@ const SUPABASE_URL = 'https://mfcievzvojupgxqagmgb.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mY2lldnp2b2p1cGd4cWFnbWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5ODExNzAsImV4cCI6MjA5MDU1NzE3MH0.ADduOhtH8NWJ2DrNWIw0YyiaKobwZyk5pQ_-uK00Hw0';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const SESSION_KEY = 'myw_admin_auth';
-const DEMOS_KEY   = 'myw_demos';
-const GH_KEY      = 'myw_gh_config';
-
 // ── AUTH GUARD ──
 async function checkAuth() {
   const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session && sessionStorage.getItem(SESSION_KEY) !== 'true') {
+  if (!session) {
     window.location.href = 'index.html';
   }
 }
 checkAuth();
+
+// Logout Handler
+async function handleLogout() {
+  await supabaseClient.auth.signOut();
+  window.location.href = 'index.html';
+}
 
 /* ── STATE ── */
 let demos = [];
