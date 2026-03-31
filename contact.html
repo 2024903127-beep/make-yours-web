@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us — Make Your Web</title>
+  <meta name="description" content="Ready to get your professional business website? Contact us today for a free consultation and let's get you online in 3 days."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;1,14..32,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="page-body">
+
+<nav id="nav" class="scrolled">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">make<span>your</span>web<em>.xyz</em></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <a href="https://wa.me/918287034496" target="_blank" class="nav-cta">
+      <i class="fab fa-whatsapp"></i> Get Started
+    </a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="sec-tag">Get In Touch</div>
+    <h1 class="page-h1">Let's Build Your<br/><span class="shine-text">Digital Success</span></h1>
+    <p class="page-p">Whether you have a question about our pricing or you're ready to launch your business website today, we're here to help.</p>
+  </div>
+</section>
+
+<section class="contact-page">
+  <div class="container">
+    <div class="cp-grid">
+      <div class="cp-left fade-up">
+        <h2>Direct Support</h2>
+        <div class="cp-item">
+          <div class="cp-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="cp-body">
+            <span>WhatsApp / Phone</span>
+            <strong><a href="tel:+918287034496">+91 82870 34496</a></strong>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-icon"><i class="fas fa-envelope"></i></div>
+          <div class="cp-body">
+            <span>Email</span>
+            <strong><a href="mailto:rahulmishraoffical69@gmail.com">rahulmishraoffical69@gmail.com</a></strong>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-icon"><i class="fas fa-clock"></i></div>
+          <div class="cp-body">
+            <span>Response Time</span>
+            <strong>Within 1 Hour</strong>
+          </div>
+        </div>
+        <div class="cp-socials">
+          <p>Follow our work:</p>
+          <div class="fg-socials">
+            <a href="https://wa.me/918287034496" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:rahulmishraoffical69@gmail.com"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="cp-right fade-up">
+        <form id="contactForm" class="contact-card">
+          <h3>Send us a Message</h3>
+          <div class="cf-row">
+            <div class="cf-group"><label>Name</label><input type="text" placeholder="Rahul Sharma" required/></div>
+            <div class="cf-group"><label>Phone</label><input type="tel" placeholder="+91 98765 43210" required/></div>
+          </div>
+          <div class="cf-group">
+            <label>Industry</label>
+            <select required>
+              <option value="">Select industry</option>
+              <option>Gym / Fitness</option>
+              <option>Restaurant / Café</option>
+              <option>Hotel / Resort</option>
+              <option>Clinic / Hospital</option>
+              <option>Real Estate</option>
+              <option>Education</option>
+              <option>Small Business</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="cf-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your requirements…" required></textarea></div>
+          <button type="submit" class="btn-primary btn-full"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
+        </form>
+        <div id="cfSuccess" class="cf-success" style="padding: 2rem; background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.3); border-radius: 12px; display: none;">
+          <h3><i class="fas fa-check-circle"></i> Message Sent!</h3>
+          <p>Thank you for reaching out. A team member will contact you on WhatsApp within 1 hour.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+    <div class="fg-brand">
+      <a href="index.html" class="nav-logo">make<span>your</span>web<em>.xyz</em></a>
+      <p>Premium websites for every business. Fast. Modern. Affordable. Built in India 🇮🇳</p>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 MakeYourWeb.xyz · All rights reserved</p></div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = contactForm.querySelector('button');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing…';
+    
+    setTimeout(() => {
+      contactForm.style.display = 'none';
+      document.getElementById('cfSuccess').style.display = 'block';
+    }, 1500);
+  });
+}
+</script>
+</body>
+</html>
