@@ -1,5 +1,75 @@
 [
   {
+    "id": "hotel",
+    "title": "LUMIÈRE Luxury Hotel",
+    "slug": "demos/hotel",
+    "category": "Hotel & Resort",
+    "color": "#C9A84C",
+    "desc": "Elegant rooms, gold aesthetic, fine dining & rooftop pool showcase.",
+    "status": "live",
+    "builtin": true
+  },
+  {
+    "id": "gym",
+    "title": "IRONVAULT Gym",
+    "slug": "demos/gym",
+    "category": "Gym & Fitness",
+    "color": "#e8ff00",
+    "desc": "Dark neon-yellow hardcore aesthetic. Membership plans & class timetable.",
+    "status": "live",
+    "builtin": true
+  },
+  {
+    "id": "restaurant",
+    "title": "EMBER & ASH Restaurant",
+    "slug": "demos/restaurant",
+    "category": "Restaurant & Café",
+    "color": "#c0622a",
+    "desc": "Warm dark fine-dining theme. Full menu, reservation system & ambiance gallery.",
+    "status": "live",
+    "builtin": true
+  },
+  {
+    "id": "clinic",
+    "title": "SERENOVA Health",
+    "slug": "demos/clinic",
+    "category": "Clinic & Hospital",
+    "color": "#0891b2",
+    "desc": "Clean teal-white medical design. Doctor profiles & appointment booking.",
+    "status": "live",
+    "builtin": true
+  },
+  {
+    "id": "education",
+    "title": "MERIDIAN Institute",
+    "slug": "demos/education",
+    "category": "Education",
+    "color": "#2563eb",
+    "desc": "Light editorial education design. Course listings & online admission form.",
+    "status": "live",
+    "builtin": true
+  },
+  {
+    "id": "real-estate",
+    "title": "AURUM Estates",
+    "slug": "demos/real-estate",
+    "category": "Real Estate",
+    "color": "#c9a84c",
+    "desc": "Dark gold luxury real estate. Property listings, virtual tours & lead capture.",
+    "status": "live",
+    "builtin": true
+  },
+  {
+    "id": "business",
+    "title": "PRESTIGE — Universal Business",
+    "slug": "demos/business",
+    "category": "Small Business",
+    "color": "#4f7cff",
+    "desc": "One template, 6 live switchable colour themes. Works for any business.",
+    "status": "live",
+    "builtin": true
+  },
+  {
     "id": "market-place-website-1773862280279",
     "title": "market place website",
     "slug": "demos/market-place-website",

@@ -7,11 +7,14 @@
   <meta name="description" content="Get a stunning, fast, professional website for your business. Gyms, restaurants, hotels, clinics, real estate & more. Starting ₹999. Delivered in 3 days."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+  <!-- V3 OVERLAYS -->
+  <div class="grain-overlay"></div>
+  <div id="scroll-progress"></div>
 
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
@@ -84,17 +87,26 @@
   <div class="hero-scroll"><div class="scroll-track"></div><span>Scroll</span></div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>Gym Websites</span><span class="mx">✦</span><span>Restaurant Websites</span><span class="mx">✦</span>
-    <span>Hotel Websites</span><span class="mx">✦</span><span>Clinic Websites</span><span class="mx">✦</span>
-    <span>Real Estate Portals</span><span class="mx">✦</span><span>Education Institutes</span><span class="mx">✦</span>
-    <span>Business Websites</span><span class="mx">✦</span><span>E-Commerce Stores</span><span class="mx">✦</span>
-    <span>Gym Websites</span><span class="mx">✦</span><span>Restaurant Websites</span><span class="mx">✦</span>
-    <span>Hotel Websites</span><span class="mx">✦</span><span>Clinic Websites</span><span class="mx">✦</span>
-    <span>Real Estate Portals</span><span class="mx">✦</span><span>Education Institutes</span><span class="mx">✦</span>
-    <span>Business Websites</span><span class="mx">✦</span><span>E-Commerce Stores</span><span class="mx">✦</span>
+<!-- INDUSTRY FOCUS MARQUEE -->
+<div class="marquee-container">
+  <div class="marquee-content">
+    <div class="marquee-item"><i class="fas fa-dumbbell"></i> FYSIO GYMS</div>
+    <div class="marquee-item"><i class="fas fa-utensils"></i> LOCAL BISTROS</div>
+    <div class="marquee-item"><i class="fas fa-hotel"></i> BOUTIQUE HOTELS</div>
+    <div class="marquee-item"><i class="fas fa-building"></i> REAL ESTATE</div>
+    <div class="marquee-item"><i class="fas fa-hospital"></i> DENTAL CLINICS</div>
+    <div class="marquee-item"><i class="fas fa-graduation-cap"></i> EDUCATION</div>
+    <div class="marquee-item"><i class="fas fa-store"></i> SMALL BUSINESS</div>
+    <div class="marquee-item"><i class="fas fa-cart-shopping"></i> E-COMMERCE</div>
+    <!-- Duplicate for infinite effect -->
+    <div class="marquee-item"><i class="fas fa-dumbbell"></i> FYSIO GYMS</div>
+    <div class="marquee-item"><i class="fas fa-utensils"></i> LOCAL BISTROS</div>
+    <div class="marquee-item"><i class="fas fa-hotel"></i> BOUTIQUE HOTELS</div>
+    <div class="marquee-item"><i class="fas fa-building"></i> REAL ESTATE</div>
+    <div class="marquee-item"><i class="fas fa-hospital"></i> DENTAL CLINICS</div>
+    <div class="marquee-item"><i class="fas fa-graduation-cap"></i> EDUCATION</div>
+    <div class="marquee-item"><i class="fas fa-store"></i> SMALL BUSINESS</div>
+    <div class="marquee-item"><i class="fas fa-cart-shopping"></i> E-COMMERCE</div>
   </div>
 </div>
 
@@ -102,7 +114,7 @@
 <section id="whyus">
   <div class="container">
     <div class="whyus-grid">
-      <div class="whyus-left fade-up" data-d="0">
+      <div class="whyus-left fade-up">
         <div class="sec-tag">Why Choose Us</div>
         <h2 class="sec-h2">Your website is your<br/><span class="shine-text">best salesperson</span></h2>
         <p class="whyus-p">Most businesses in India still don't have a proper website. Your competitors are losing customers every day to whoever shows up on Google first. We fix that — fast, affordable, and beautifully.</p>
@@ -111,22 +123,57 @@
         </a>
       </div>
       <div class="whyus-right">
-        <div class="why-card fade-up" data-d="0">
-          <div class="why-icon" style="--wic:#6c63ff;--wib:rgba(108,99,255,.12)"><i class="fas fa-bolt"></i></div>
+        <div class="why-card fade-up">
+          <div class="why-icon" style="--wic:#7c3aed;--wib:rgba(124,58,237,.12)"><i class="fas fa-bolt"></i></div>
           <div><strong>3-Day Delivery</strong><p>Your business goes live online in just 3 days — not weeks. We move fast so you can too.</p></div>
         </div>
-        <div class="why-card fade-up" data-d="1">
-          <div class="why-icon" style="--wic:#43e97b;--wib:rgba(67,233,123,.12)"><i class="fas fa-mobile-screen"></i></div>
+        <div class="why-card fade-up">
+          <div class="why-icon" style="--wic:#10b981;--wib:rgba(16,185,129,.12)"><i class="fas fa-mobile-screen"></i></div>
           <div><strong>Mobile-First Design</strong><p>80% of your customers will visit on a phone. Every site looks perfect on all screens.</p></div>
         </div>
-        <div class="why-card fade-up" data-d="2">
-          <div class="why-icon" style="--wic:#f5c842;--wib:rgba(245,200,66,.12)"><i class="fas fa-indian-rupee-sign"></i></div>
+        <div class="why-card fade-up">
+          <div class="why-icon" style="--wic:#fbbf24;--wib:rgba(251,191,36,.12)"><i class="fas fa-indian-rupee-sign"></i></div>
           <div><strong>No Hidden Costs</strong><p>₹999 means ₹999. No surprise fees, no monthly charges. You own your website 100%.</p></div>
         </div>
-        <div class="why-card fade-up" data-d="3">
-          <div class="why-icon" style="--wic:#ff6584;--wib:rgba(255,101,132,.12)"><i class="fas fa-headset"></i></div>
+        <div class="why-card fade-up">
+          <div class="why-icon" style="--wic:#f43f5e;--wib:rgba(244,63,94,.12)"><i class="fas fa-headset"></i></div>
           <div><strong>1-Hour Response</strong><p>Message us on WhatsApp and get a reply within 1 hour. Real support, real person.</p></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI / VALUE PROP -->
+<style>
+.roi-section { padding: 8rem 0; background: var(--bg2); border-top: 1px solid var(--border); }
+.roi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+.roi-card { background: var(--glass); border: 1px solid var(--border); padding: 3rem 2rem; border-radius: var(--r); text-align: center; transition: all .4s var(--ease); }
+.roi-card:hover { border-color: var(--acc); transform: translateY(-10px); background: rgba(255,255,255,.05); }
+.roi-ic { width: 64px; height: 64px; background: var(--acc); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem; box-shadow: 0 10px 20px var(--acc-glow); }
+.roi-card h3 { font-family: var(--fh); font-size: 1.5rem; margin-bottom: 1rem; }
+.roi-card p { color: var(--muted); font-size: .95rem; line-height: 1.6; }
+@media(max-width:768px) { .roi-grid { grid-template-columns: 1fr; } }
+</style>
+<section class="roi-section">
+  <div class="container">
+    <div class="sec-tag fade-up">Business Growth</div>
+    <h2 class="sec-h2 fade-up">Why Your Business<br/><span class="shine-text">Needs a Website Today</span></h2>
+    <div class="roi-grid">
+      <div class="roi-card fade-up">
+        <div class="roi-ic"><i class="fas fa-chart-line"></i></div>
+        <h3>24/7 Sales Lead</h3>
+        <p>Your shop closes at 9 PM, but your website works 24/7. Get enquiries and bookings even while you sleep.</p>
+      </div>
+      <div class="roi-card fade-up">
+        <div class="roi-ic"><i class="fas fa-shield-halved"></i></div>
+        <h3>Build Instant Trust</h3>
+        <p>87% of customers research a business online before visiting. A professional site makes you look established and reliable.</p>
+      </div>
+      <div class="roi-card fade-up">
+        <div class="roi-ic"><i class="fas fa-magnifying-glass-location"></i></div>
+        <h3>Show Up on Google</h3>
+        <p>Be the first business people see when they search "best gym/restaurant near me". Don't let your competitors take your local traffic.</p>
       </div>
     </div>
   </div>
@@ -170,78 +217,11 @@
     </div>
 
     <div class="demo-grid" id="demoGrid">
-
-      <div class="demo-card fade-up" data-d="0" data-cat="Hotel &amp; Resort">
-        <a href="demos/hotel/index.html" target="_blank" class="demo-preview" style="--bg1:#0A0F1E;--bg2:#1a2a4a;--ac:#C9A84C">
-          <div class="dp-browser"><div class="dp-bar"><span></span><span></span><span></span></div>
-            <div class="dp-screen"><div class="dp-nav" style="background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.2)"><div class="dp-logo" style="color:#C9A84C">LUMIÈRE</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#0A0F1E,#1a2a4a)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#C9A84C">BOUTIQUE LUXURY HOTEL</div><div class="dp-h-title" style="color:#F5F0E8">Where Every<br/>Moment Matters</div><div class="dp-h-btn" style="background:#C9A84C;color:#0A0F1E">Book Your Stay</div></div><div class="dp-hero-deco" style="border-color:rgba(201,168,76,.3)"></div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.15)"><div style="color:#C9A84C;font-size:.4rem;margin-bottom:2px">🌊 POOL SUITE</div><div class="dp-c-bar"></div><div class="dp-c-bar" style="width:55%"></div></div><div class="dp-c" style="background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.15)"><div style="color:#C9A84C;font-size:.4rem;margin-bottom:2px">🍽️ DINING</div><div class="dp-c-bar"></div><div class="dp-c-bar" style="width:40%"></div></div><div class="dp-c" style="background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.15)"><div style="color:#C9A84C;font-size:.4rem;margin-bottom:2px">💆 SPA</div><div class="dp-c-bar"></div><div class="dp-c-bar" style="width:65%"></div></div></div>
-          </div></div><div class="demo-hover-cta">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#C9A84C;--tb:rgba(201,168,76,.12)">Hotel &amp; Resort</span><span class="di-live">● Live</span></div><h4>LUMIÈRE Luxury Hotel</h4><p>Elegant rooms, gold aesthetic, fine dining &amp; rooftop pool showcase. Custom cursor included.</p><a href="demos/hotel/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
+      <!-- Generated by script.js from demos.json -->
+      <div class="demo-loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading premium demos…
       </div>
-
-      <div class="demo-card fade-up" data-d="1" data-cat="Gym &amp; Fitness">
-        <a href="demos/gym/index.html" target="_blank" class="demo-preview" style="--bg1:#080808;--bg2:#111;--ac:#e8ff00">
-          <div class="dp-browser"><div class="dp-bar"><span></span><span></span><span></span></div>
-            <div class="dp-screen" style="background:#080808"><div class="dp-nav" style="background:transparent;border-color:rgba(232,255,0,.15)"><div class="dp-logo" style="color:#e8ff00;letter-spacing:.15em">IRONVAULT</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#0f0f0f,#1a0000)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#e8ff00;letter-spacing:.2em">NO EXCUSES</div><div class="dp-h-title" style="color:#f0f0f0;font-size:.75rem">FORGE YOUR<br/>LEGACY</div><div class="dp-h-btn" style="background:#e8ff00;color:#080808">Join Now</div></div><div class="dp-neon-bar" style="background:#e8ff00"></div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:#111;border-color:rgba(232,255,0,.15)"><div style="color:#e8ff00;font-size:.4rem;margin-bottom:2px">💪 STRENGTH</div><div class="dp-c-bar" style="background:#e8ff00"></div><div class="dp-c-bar" style="width:60%;background:rgba(232,255,0,.3)"></div></div><div class="dp-c" style="background:#111;border-color:rgba(232,255,0,.15)"><div style="color:#e8ff00;font-size:.4rem;margin-bottom:2px">🏃 CARDIO</div><div class="dp-c-bar" style="background:#e8ff00"></div><div class="dp-c-bar" style="width:45%;background:rgba(232,255,0,.3)"></div></div><div class="dp-c" style="background:#111;border-color:rgba(232,255,0,.15)"><div style="color:#e8ff00;font-size:.4rem;margin-bottom:2px">🥊 BOXING</div><div class="dp-c-bar" style="background:#e8ff00"></div><div class="dp-c-bar" style="width:70%;background:rgba(232,255,0,.3)"></div></div></div>
-          </div></div><div class="demo-hover-cta">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#e8ff00;--tb:rgba(232,255,0,.1)">Gym &amp; Fitness</span><span class="di-live">● Live</span></div><h4>IRONVAULT Gym</h4><p>Dark neon-yellow hardcore aesthetic. Custom cursor, membership plans &amp; class timetable.</p><a href="demos/gym/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
-      </div>
-
-      <div class="demo-card fade-up" data-d="2" data-cat="Restaurant &amp; Café">
-        <a href="demos/restaurant/index.html" target="_blank" class="demo-preview" style="--bg1:#0c0a09;--bg2:#221c16;--ac:#c0622a">
-          <div class="dp-browser"><div class="dp-bar"><span></span><span></span><span></span></div>
-            <div class="dp-screen" style="background:#0c0a09"><div class="dp-nav" style="background:transparent;border-color:rgba(192,98,42,.2)"><div class="dp-logo" style="color:#f0e6d3;font-size:.5rem;letter-spacing:.15em">EMBER &amp; ASH</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#120f0d,#2a1a10)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#c0622a">FINE DINING</div><div class="dp-h-title" style="color:#f0e6d3;font-style:italic">Where Fire<br/>Meets Flavour</div><div class="dp-h-btn" style="background:#c0622a;color:#fff">Reserve Table</div></div><div class="dp-flame" style="color:#c0622a">🔥</div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:#120f0d;border-color:rgba(192,98,42,.2)"><div style="color:#c0622a;font-size:.4rem;margin-bottom:2px">🥩 STARTERS</div><div class="dp-c-bar" style="background:#c0622a"></div><div class="dp-c-bar" style="width:50%;background:rgba(192,98,42,.3)"></div></div><div class="dp-c" style="background:#120f0d;border-color:rgba(192,98,42,.2)"><div style="color:#c0622a;font-size:.4rem;margin-bottom:2px">🍝 MAINS</div><div class="dp-c-bar" style="background:#c0622a"></div><div class="dp-c-bar" style="width:65%;background:rgba(192,98,42,.3)"></div></div><div class="dp-c" style="background:#120f0d;border-color:rgba(192,98,42,.2)"><div style="color:#c0622a;font-size:.4rem;margin-bottom:2px">🍮 DESSERTS</div><div class="dp-c-bar" style="background:#c0622a"></div><div class="dp-c-bar" style="width:40%;background:rgba(192,98,42,.3)"></div></div></div>
-          </div></div><div class="demo-hover-cta">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#c0622a;--tb:rgba(192,98,42,.1)">Restaurant</span><span class="di-live">● Live</span></div><h4>EMBER &amp; ASH Restaurant</h4><p>Warm dark fine-dining theme. Full menu, reservation system &amp; ambiance gallery.</p><a href="demos/restaurant/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
-      </div>
-
-      <div class="demo-card fade-up" data-d="0" data-cat="Clinic &amp; Hospital">
-        <a href="demos/clinic/index.html" target="_blank" class="demo-preview" style="--bg1:#f9fafb;--bg2:#ecfeff;--ac:#0891b2">
-          <div class="dp-browser"><div class="dp-bar"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
-            <div class="dp-screen" style="background:#f9fafb;color:#1c2b3a"><div class="dp-nav" style="background:#fff;border-color:#e2e8f0;box-shadow:0 1px 4px rgba(0,0,0,.06)"><div class="dp-logo" style="color:#0891b2">✚ SERENOVA</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#ecfeff,#cffafe)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#0891b2">YOUR CARE PARTNER</div><div class="dp-h-title" style="color:#1c2b3a;font-size:.65rem">Expert Doctors,<br/>Compassionate Care</div><div class="dp-h-btn" style="background:#0891b2;color:#fff">Book Appointment</div></div><div class="dp-cross" style="color:#0891b2">✚</div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:#fff;border-color:#e2e8f0"><div style="color:#0891b2;font-size:.4rem;margin-bottom:2px">🦷 DENTAL</div><div class="dp-c-bar" style="background:#0891b2"></div><div class="dp-c-bar" style="width:55%;background:#cffafe"></div></div><div class="dp-c" style="background:#fff;border-color:#e2e8f0"><div style="color:#0891b2;font-size:.4rem;margin-bottom:2px">🫀 CARDIO</div><div class="dp-c-bar" style="background:#0891b2"></div><div class="dp-c-bar" style="width:40%;background:#cffafe"></div></div><div class="dp-c" style="background:#fff;border-color:#e2e8f0"><div style="color:#0891b2;font-size:.4rem;margin-bottom:2px">🧠 NEURO</div><div class="dp-c-bar" style="background:#0891b2"></div><div class="dp-c-bar" style="width:70%;background:#cffafe"></div></div></div>
-          </div></div><div class="demo-hover-cta" style="color:#0891b2">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#0891b2;--tb:rgba(8,145,178,.1)">Clinic &amp; Hospital</span><span class="di-live">● Live</span></div><h4>SERENOVA Health</h4><p>Clean teal-white medical design. Doctor profiles, appointment booking &amp; speciality services.</p><a href="demos/clinic/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
-      </div>
-
-      <div class="demo-card fade-up" data-d="1" data-cat="Education">
-        <a href="demos/education/index.html" target="_blank" class="demo-preview" style="--bg1:#f8f7f4;--bg2:#eff4ff;--ac:#2563eb">
-          <div class="dp-browser"><div class="dp-bar"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
-            <div class="dp-screen" style="background:#f8f7f4;color:#0f1117"><div class="dp-nav" style="background:#fff;border-color:#e5e2db"><div class="dp-logo" style="color:#2563eb;font-size:.45rem;font-weight:700">MERIDIAN</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#eff4ff,#dbeafe)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#f59e0b;letter-spacing:.1em">EXCELLENCE IN EDUCATION</div><div class="dp-h-title" style="color:#0f1117;font-size:.65rem">Shaping Tomorrow's<br/>Leaders Today</div><div class="dp-h-btn" style="background:#2563eb;color:#fff">Enroll Now</div></div><div class="dp-book" style="color:#2563eb">📚</div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:#fff;border-color:#e5e2db"><div style="color:#2563eb;font-size:.4rem;margin-bottom:2px">🎓 JEE PREP</div><div class="dp-c-bar" style="background:#2563eb"></div><div class="dp-c-bar" style="width:55%;background:#dbeafe"></div></div><div class="dp-c" style="background:#fff;border-color:#e5e2db"><div style="color:#2563eb;font-size:.4rem;margin-bottom:2px">📝 NEET</div><div class="dp-c-bar" style="background:#2563eb"></div><div class="dp-c-bar" style="width:45%;background:#dbeafe"></div></div><div class="dp-c" style="background:#fff;border-color:#e5e2db"><div style="color:#2563eb;font-size:.4rem;margin-bottom:2px">💼 MBA</div><div class="dp-c-bar" style="background:#2563eb"></div><div class="dp-c-bar" style="width:60%;background:#dbeafe"></div></div></div>
-          </div></div><div class="demo-hover-cta" style="color:#2563eb">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#2563eb;--tb:rgba(37,99,235,.1)">Education</span><span class="di-live">● Live</span></div><h4>MERIDIAN Institute</h4><p>Light editorial education design. Course listings, faculty profiles &amp; online admission form.</p><a href="demos/education/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
-      </div>
-
-      <div class="demo-card fade-up" data-d="2" data-cat="Real Estate">
-        <a href="demos/real-estate/index.html" target="_blank" class="demo-preview" style="--bg1:#0e0e0e;--bg2:#1c1c1c;--ac:#c9a84c">
-          <div class="dp-browser"><div class="dp-bar"><span></span><span></span><span></span></div>
-            <div class="dp-screen" style="background:#0e0e0e"><div class="dp-nav" style="background:transparent;border-color:rgba(201,168,76,.12)"><div class="dp-logo" style="color:#f5f3ef;letter-spacing:.3em;font-size:.4rem">AURUM</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#0e0e0e,#1c1c1c)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#c9a84c;letter-spacing:.3em;font-size:.3rem">LUXURY PROPERTIES</div><div class="dp-h-title" style="color:#f5f3ef;font-size:.65rem">Where Luxury<br/>Finds Home</div><div class="dp-h-btn" style="background:transparent;color:#c9a84c;border:1px solid #c9a84c">Explore</div></div><div class="dp-prop-badge" style="border-color:rgba(201,168,76,.3)"><span style="color:#c9a84c;font-size:.35rem">₹ PREMIUM</span></div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:#141414;border-color:rgba(201,168,76,.15)"><div style="color:#c9a84c;font-size:.4rem;margin-bottom:2px">🏢 APTS</div><div class="dp-c-bar" style="background:#c9a84c"></div><div class="dp-c-bar" style="width:50%;background:rgba(201,168,76,.2)"></div></div><div class="dp-c" style="background:#141414;border-color:rgba(201,168,76,.15)"><div style="color:#c9a84c;font-size:.4rem;margin-bottom:2px">🏡 VILLAS</div><div class="dp-c-bar" style="background:#c9a84c"></div><div class="dp-c-bar" style="width:65%;background:rgba(201,168,76,.2)"></div></div><div class="dp-c" style="background:#141414;border-color:rgba(201,168,76,.15)"><div style="color:#c9a84c;font-size:.4rem;margin-bottom:2px">🏗️ PLOTS</div><div class="dp-c-bar" style="background:#c9a84c"></div><div class="dp-c-bar" style="width:40%;background:rgba(201,168,76,.2)"></div></div></div>
-          </div></div><div class="demo-hover-cta">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#c9a84c;--tb:rgba(201,168,76,.1)">Real Estate</span><span class="di-live">● Live</span></div><h4>AURUM Estates</h4><p>Dark gold luxury real estate. Property listings, virtual tours &amp; lead capture forms.</p><a href="demos/real-estate/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
-      </div>
-
-      <div class="demo-card fade-up" data-d="0" data-cat="Small Business">
-        <a href="demos/business/index.html" target="_blank" class="demo-preview" style="--bg1:#f7f8fc;--bg2:#eef0f7;--ac:#4f7cff">
-          <div class="dp-browser"><div class="dp-bar"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
-            <div class="dp-screen" style="background:#f7f8fc;color:#101828"><div class="dp-nav" style="background:#fff;border-color:#e4e7ec"><div class="dp-logo" style="color:#4f7cff">PRESTIGE</div><div class="dp-nav-links"><div></div><div></div><div></div></div></div>
-              <div class="dp-hero" style="background:linear-gradient(135deg,#eef2ff,#c7d4ff)"><div class="dp-hero-text"><div class="dp-h-sub" style="color:#4f7cff">6 LIVE COLOUR THEMES</div><div class="dp-h-title" style="color:#101828;font-size:.65rem">Works for Any<br/>Business Type</div><div class="dp-h-btn" style="background:#4f7cff;color:#fff">Explore Demo</div></div><div class="dp-theme-dots"><span style="background:#4f7cff"></span><span style="background:#e11d48"></span><span style="background:#059669"></span><span style="background:#d97706"></span><span style="background:#7c3aed"></span><span style="background:#0f172a"></span></div></div>
-              <div class="dp-cards"><div class="dp-c" style="background:#fff;border-color:#e4e7ec"><div style="color:#4f7cff;font-size:.4rem;margin-bottom:2px">💼 SERVICES</div><div class="dp-c-bar" style="background:#4f7cff"></div><div class="dp-c-bar" style="width:60%;background:#c7d4ff"></div></div><div class="dp-c" style="background:#fff;border-color:#e4e7ec"><div style="color:#4f7cff;font-size:.4rem;margin-bottom:2px">⭐ REVIEWS</div><div class="dp-c-bar" style="background:#4f7cff"></div><div class="dp-c-bar" style="width:45%;background:#c7d4ff"></div></div><div class="dp-c" style="background:#fff;border-color:#e4e7ec"><div style="color:#4f7cff;font-size:.4rem;margin-bottom:2px">📞 CONTACT</div><div class="dp-c-bar" style="background:#4f7cff"></div><div class="dp-c-bar" style="width:55%;background:#c7d4ff"></div></div></div>
-          </div></div><div class="demo-hover-cta" style="color:#4f7cff">Open Live Demo <i class="fa fa-external-link-alt"></i></div></a>
-        <div class="demo-info"><div class="di-row"><span class="di-tag" style="--tc:#4f7cff;--tb:rgba(79,124,255,.1)">Universal Business</span><span class="di-live">● Live · 6 Themes</span></div><h4>PRESTIGE — Universal Business</h4><p>One template, 6 live switchable colour themes. Works for any business type.</p><a href="demos/business/index.html" target="_blank" class="di-link">View Full Demo <i class="fa fa-arrow-right"></i></a></div>
-      </div>
-
-    </div><!-- #demoGrid -->
+    </div>
 
     <div class="demos-cta fade-up">
       <p>Want a website like these for your business?</p>
@@ -306,7 +286,40 @@
   </div>
 </section>
 
-<!-- PRICING -->
+<!-- TRUST / STATS -->
+<style>
+.trust-sec { padding: 8rem 0; background: var(--bg); position: relative; overflow: hidden; }
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4rem; }
+.t-card { background: var(--glass); border: 1px solid var(--border); padding: 2.5rem 1.5rem; border-radius: var(--r); text-align: center; }
+.t-card strong { display: block; font-family: var(--fh); font-size: 3rem; font-weight: 800; color: var(--acc); margin-bottom: .5rem; }
+.t-card span { color: var(--muted); font-size: .85rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+@media(max-width:992px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:480px) { .trust-grid { grid-template-columns: 1fr; } }
+</style>
+<section class="trust-sec">
+  <div class="container">
+    <div class="sec-tag fade-up">Our Impact</div>
+    <h2 class="sec-h2 fade-up">Digital growth by<br/><span class="shine-text">the numbers</span></h2>
+    <div class="trust-grid">
+      <div class="t-card fade-up">
+        <strong data-count="150">0</strong>
+        <span>Websites Built</span>
+      </div>
+      <div class="t-card fade-up">
+        <strong data-count="98">0</strong>%
+        <span>Client Satisfaction</span>
+      </div>
+      <div class="t-card fade-up">
+        <strong data-count="40">0</strong>%
+        <span>Avg. ROI Increase</span>
+      </div>
+      <div class="t-card fade-up">
+        <strong data-count="24">0</strong>/7
+        <span>VIP Support</span>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="pricing">
   <div class="container">
     <div class="sec-tag fade-up">Transparent Pricing</div>

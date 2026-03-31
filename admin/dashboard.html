@@ -301,7 +301,10 @@
       background:rgba(255,255,255,.04);border:1px solid var(--border);
       border-radius:var(--r);padding:.75rem 1rem;
       color:var(--text);font-family:var(--fb);font-size:.9rem;
-      outline:none;resize:none;-webkit-appearance:none;
+      outline:none;resize:none;
+      appearance: none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
       transition:border-color .25s,box-shadow .25s;
     }
     .mf-group select option{background:#0d1020;}
@@ -439,7 +442,10 @@
       background:rgba(255,255,255,.04);border:1px solid var(--border);
       border-radius:var(--r);padding:.75rem 1rem;
       color:var(--text);font-family:var(--fb);font-size:.9rem;
-      outline:none;-webkit-appearance:none;
+      outline:none;
+      appearance: none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
       transition:border-color .25s,box-shadow .25s;
     }
     .gh-group input:focus{border-color:rgba(108,99,255,.5);box-shadow:0 0 0 3px rgba(108,99,255,.1);}
@@ -1043,8 +1049,8 @@ function renderTable(containerId, list) {
         ` : `<span style="font-size:.7rem;color:var(--muted);padding:0 .25rem">built-in</span>`}
       </div>
     </div>
-  `).join('');
-}
+  </div>
+</div>
 
 /* ── TOGGLE STATUS ── */
 function toggleStatus(id) {
