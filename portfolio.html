@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portfolio — Make Your Web</title>
   <meta name="description" content="Explore our collection of premium business website demos. From gyms to hotels, see how we can transform your digital presence."/>
+  
+  <!-- SEO & Branding -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="apple-touch-icon" href="favicon.svg"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://makeyourweb.xyz/portfolio.html"/>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://makeyourweb.xyz/portfolio.html"/>
+  <meta property="og:title" content="Our Portfolio — Premium Industry Demos"/>
+  <meta property="og:description" content="View our live website demos for gyms, restaurants, and more. Premium designs starting at ₹999."/>
+  <meta property="og:image" content="https://makeyourweb.xyz/favicon.svg"/>
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image"/>
+  <meta property="twitter:title" content="Our Portfolio — Make Your Web"/>
+  <meta property="twitter:image" content="https://makeyourweb.xyz/favicon.svg"/>
+
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;1,14..32,400&display=swap" rel="stylesheet"/>
@@ -128,23 +147,36 @@
     return card;
   }
 
+  const FALLBACK_DEMOS = [
+    { id:'hotel-1', title:'LUMIÈRE Luxury Hotel', slug:'demos/hotel', category:'Hotel & Resort', color:'#C9A84C', desc:'Elegant rooms, gold aesthetic, fine dining showcase.', status:'live' },
+    { id:'gym-1', title:'IRONVAULT Gym', slug:'demos/gym', category:'Gym & Fitness', color:'#e8ff00', desc:'Dark neon-yellow hardcore aesthetic.', status:'live' },
+    { id:'rest-1', title:'EMBER & ASH Restaurant', slug:'demos/restaurant', category:'Restaurant & Café', color:'#c0622a', desc:'Warm dark fine-dining theme. Full menu.', status:'live' },
+    { id:'clinic-1', title:'SERENOVA Health', slug:'demos/clinic', category:'Clinic & Hospital', color:'#0891b2', desc:'Clean teal-white medical design.', status:'live' }
+  ];
+
   async function load() {
     try {
       const res = await fetch('demos.json');
+      if (!res.ok) throw new Error('Fetch Error');
       const data = await res.json();
       if (Array.isArray(data)) {
         grid.innerHTML = '';
         data.filter(d => d.status === 'live').forEach(d => {
           grid.appendChild(createCard(d));
         });
-      }
+      } else { throw new Error('Format Error'); }
     } catch (e) {
+      console.warn('Portfolio load fail, trying cache...', e);
       const s = localStorage.getItem(DEMOS_KEY);
       if (s) {
         grid.innerHTML = '';
         JSON.parse(s).filter(d => d.status === 'live').forEach(d => {
           grid.appendChild(createCard(d));
         });
+      } else {
+        console.warn('Cache empty, using fallbacks.');
+        grid.innerHTML = '';
+        FALLBACK_DEMOS.forEach(d => grid.appendChild(createCard(d)));
       }
     }
   }

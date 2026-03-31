@@ -578,9 +578,7 @@
       </div>
     </div>
 
-    <!-- ══════════════
-         VIEW: OVERVIEW
-    ══════════════════ -->
+    <!-- VIEW: OVERVIEW -->
     <div class="view active" id="view-overview">
       <div class="stats-row">
         <div class="stat-card">
@@ -632,44 +630,13 @@
         </div>
         <div id="overviewTableBody"></div>
       </div>
-
-      <!-- Quick guide -->
-      <div style="margin-top:2rem;">
-        <div class="sec-hd"><div><h3>🚀 Quick Start Guide</h3><p>How to add a new demo in 3 steps</p></div></div>
-        <div class="setup-steps" style="background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:1.75rem;max-width:580px;">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-body">
-              <strong>Upload your demo files</strong>
-              <p>Go to <b>Upload Demo</b> and drag & drop your website's HTML, CSS, JS files. Give it a name and category.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-body">
-              <strong>Configure GitHub (one time)</strong>
-              <p>In <b>GitHub & Deploy</b>, add your GitHub token and repo name. This only needs to be done once.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-body">
-              <strong>Publish — it goes live in ~30s</strong>
-              <p>Click <b>Publish to GitHub</b>. Netlify auto-deploys and the new demo card appears on your site.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- ══════════════
-         VIEW: UPLOAD
-    ══════════════════ -->
+    <!-- VIEW: UPLOAD -->
     <div class="view" id="view-upload">
-
       <div class="upload-panel">
         <h3><i class="fas fa-folder-open" style="color:var(--acc);margin-right:.5rem"></i> Upload Demo Website Files</h3>
-        <p>Drag & drop your entire demo website folder. Include <code style="font-size:.8rem;background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:6px;padding:.1rem .4rem;font-family:monospace;color:var(--acc3)">index.html</code>, CSS, JS, and any images.</p>
+        <p>Drag & drop your entire demo website folder. Include <code>index.html</code>, CSS, JS, and any images.</p>
 
         <div class="drop-zone" id="dropZone">
           <input type="file" id="folderInput" webkitdirectory multiple style="display:none"/>
@@ -685,19 +652,10 @@
               <i class="fas fa-file"></i> Pick Files
             </button>
           </div>
-          <div class="dz-formats" style="margin-top:.75rem">
-            <span class="dz-fmt">HTML</span>
-            <span class="dz-fmt">CSS</span>
-            <span class="dz-fmt">JS</span>
-            <span class="dz-fmt">Images</span>
-            <span class="dz-fmt">Fonts</span>
-            <span class="dz-fmt">Folders ✓</span>
-          </div>
         </div>
 
         <div class="file-list" id="fileList"></div>
 
-        <!-- Meta info -->
         <div class="meta-form" id="metaForm" style="display:none">
           <div class="mf-group">
             <label>Demo Title *</label>
@@ -711,16 +669,11 @@
             <label>Category *</label>
             <select id="mCategory">
               <option value="">Select category</option>
-              <option>Gym & Fitness</option>
-              <option>Restaurant & Café</option>
-              <option>Hotel & Resort</option>
-              <option>Clinic & Hospital</option>
-              <option>Real Estate</option>
-              <option>Education</option>
-              <option>Small Business</option>
-              <option>E-Commerce</option>
-              <option>Portfolio</option>
-              <option>Other</option>
+              <option>Gym & Fitness</option><option>Restaurant & Café</option>
+              <option>Hotel & Resort</option><option>Clinic & Hospital</option>
+              <option>Real Estate</option><option>Education</option>
+              <option>Small Business</option><option>E-Commerce</option>
+              <option>Portfolio</option><option>Other</option>
             </select>
           </div>
           <div class="mf-group">
@@ -732,7 +685,7 @@
           </div>
           <div class="mf-group full">
             <label>Short Description *</label>
-            <textarea id="mDesc" rows="2" placeholder="e.g. Dark neon-yellow hardcore aesthetic. Membership plans & class timetable."></textarea>
+            <textarea id="mDesc" rows="2" placeholder="e.g. Dark neon-yellow hardcore aesthetic."></textarea>
           </div>
           <div class="mf-group">
             <label>Status</label>
@@ -743,11 +696,10 @@
           </div>
           <div class="mf-group">
             <label>Tags (comma separated)</label>
-            <input type="text" id="mTags" placeholder="e.g. dark, neon, fitness"/>
+            <input type="text" id="mTags" placeholder="modern, dark, fast"/>
           </div>
         </div>
 
-        <!-- Progress -->
         <div class="progress-wrap" id="progressWrap">
           <div class="progress-label">
             <span id="progressLabel">Uploading to GitHub…</span>
@@ -764,783 +716,62 @@
           <button class="btn btn-danger btn-sm" id="clearUploadBtn"><i class="fas fa-trash"></i> Clear</button>
         </div>
       </div>
-
-      <!-- Helpful note -->
-      <div style="background:rgba(108,99,255,.06);border:1px solid rgba(108,99,255,.18);border-radius:var(--r2);padding:1.5rem;">
-        <p style="font-size:.86rem;color:var(--muted);line-height:1.7;">
-          <i class="fas fa-circle-info" style="color:var(--acc);margin-right:.4rem"></i>
-          <strong style="color:var(--text)">How publishing works:</strong>
-          When you click <em>Publish</em>, the files are committed to your GitHub repository via the GitHub API.
-          Netlify detects the commit and automatically redeploys your live site within ~30 seconds.
-          Make sure you've configured your GitHub token in the <b>GitHub & Deploy</b> tab first.
-        </p>
-      </div>
     </div>
 
-    <!-- ══════════════
-         VIEW: DEMOS
-    ══════════════════ -->
+    <!-- VIEW: DEMOS -->
     <div class="view" id="view-demos">
       <div class="sec-hd">
         <div>
           <h3>All Demo Websites</h3>
           <p id="demosCountLabel">Loading…</p>
         </div>
-        <button class="btn btn-primary btn-sm" onclick="switchView('upload')">
-          <i class="fas fa-plus"></i> Add Demo
-        </button>
       </div>
-
       <div class="demos-table-wrap">
         <div class="dt-head">
-          <div>Website</div>
-          <div class="dt-tag-col">Category</div>
-          <div>Status</div>
-          <div></div>
+          <div>Website</div><div class="dt-tag-col">Category</div><div>Status</div><div></div>
         </div>
         <div id="demosTableBody"></div>
       </div>
     </div>
 
-    <!-- ══════════════
-         VIEW: GITHUB
-    ══════════════════ -->
+    <!-- VIEW: GITHUB -->
     <div class="view" id="view-github">
-
       <div class="setup-grid">
-        <!-- HOW IT WORKS -->
-        <div class="setup-card">
-          <h3><i class="fas fa-book"></i> How GitHub + Netlify Works</h3>
-          <p>Once configured, uploading a demo here pushes files to your GitHub repo. Netlify auto-deploys within ~30 seconds.</p>
-          <div class="setup-steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div class="step-body">
-                <strong>Create a GitHub repo</strong>
-                <p>Go to <a href="https://github.com/new" target="_blank" style="color:var(--acc)">github.com/new</a> and create a private repo named <code>makeyourweb</code></p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div class="step-body">
-                <strong>Generate a Personal Access Token</strong>
-                <p>Go to GitHub → Settings → Developer Settings → Personal Access Tokens → Generate with <code>repo</code> scope</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div class="step-body">
-                <strong>Connect Netlify to your repo</strong>
-                <p>At <a href="https://app.netlify.com" target="_blank" style="color:var(--acc)">app.netlify.com</a> → Add new site → Import from GitHub → select your repo</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">4</div>
-              <div class="step-body">
-                <strong>Paste your token below and save</strong>
-                <p>That's it! Every new upload will auto-deploy to your live Netlify URL.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CONFIG FORM -->
         <div class="setup-card">
           <h3><i class="fab fa-github"></i> GitHub Configuration</h3>
-          <p>These settings are stored in your browser's local storage. Never share your token.</p>
-
+          <p>Link your repository to enable one-click deployments.</p>
           <div class="gh-form">
-            <div class="gh-group">
-              <label>GitHub Username</label>
-              <input type="text" id="ghUser" placeholder="e.g. rahulmishra" autocomplete="off"/>
-            </div>
-            <div class="gh-group">
-              <label>Repository Name</label>
-              <input type="text" id="ghRepo" placeholder="e.g. makeyourweb" autocomplete="off"/>
-            </div>
-            <div class="gh-group">
-              <label>Branch</label>
-              <input type="text" id="ghBranch" placeholder="main" value="main" autocomplete="off"/>
-            </div>
-            <div class="gh-group">
-              <label>Personal Access Token</label>
-              <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off"/>
-            </div>
-
+            <div class="gh-group"><label>GitHub Username</label><input type="text" id="ghUser" placeholder="username"/></div>
+            <div class="gh-group"><label>Repository Name</label><input type="text" id="ghRepo" placeholder="makeyourweb"/></div>
+            <div class="gh-group"><label>Branch</label><input type="text" id="ghBranch" value="main"/></div>
+            <div class="gh-group"><label>Personal Access Token</label><input type="password" id="ghToken" placeholder="ghp_xxxx"/></div>
             <div id="ghStatus" style="display:none"></div>
-
-            <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-              <button class="btn btn-primary" id="ghSaveBtn"><i class="fas fa-floppy-disk"></i> Save Config</button>
-              <button class="btn btn-ghost" id="ghTestBtn"><i class="fas fa-plug"></i> Test Connection</button>
+            <div style="display:flex;gap:.75rem">
+              <button class="btn btn-primary" id="ghSaveBtn">Save Config</button>
+              <button class="btn btn-ghost" id="ghTestBtn">Test Connection</button>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Netlify tip -->
-      <div style="background:rgba(67,233,123,.05);border:1px solid rgba(67,233,123,.15);border-radius:var(--r2);padding:1.5rem;">
-        <p style="font-size:.86rem;color:var(--muted);line-height:1.7;">
-          <i class="fas fa-circle-check" style="color:var(--acc3);margin-right:.4rem"></i>
-          <strong style="color:var(--text)">Pro tip:</strong>
-          After connecting Netlify, set your custom domain <code style="font-size:.8rem;background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:6px;padding:.1rem .4rem;font-family:monospace;color:var(--acc3)">makeyourweb.xyz</code>
-          in Netlify → Domain settings. All future deploys will go live at your real domain automatically. Hosting is completely free on Netlify's starter plan.
-        </p>
       </div>
     </div>
 
-  </main><!-- /adm-main -->
-</div><!-- /adm-layout -->
+  </main>
+</div>
 
-<!-- TOAST STACK -->
 <div class="toast-stack" id="toastStack"></div>
 
-<!-- DELETE CONFIRM MODAL -->
 <div class="modal-overlay" id="deleteModal">
   <div class="modal">
     <h3>⚠️ Delete this demo?</h3>
-    <p>This will remove <strong id="deleteModalName"></strong> from your portfolio list. If you've already published, you'll need to also delete the files from GitHub manually.</p>
+    <p>This will remove <strong id="deleteModalName"></strong> from your portfolio. This cannot be undone.</p>
     <div class="modal-actions">
       <button class="btn btn-ghost btn-sm" id="deleteCancelBtn">Cancel</button>
-      <button class="btn btn-danger btn-sm" id="deleteConfirmBtn"><i class="fas fa-trash"></i> Delete</button>
+      <button class="btn btn-danger btn-sm" id="deleteConfirmBtn">Delete</button>
     </div>
   </div>
 </div>
 
-<script>
-/* ═══════════════════════════════════════
-   MAKEYOURWEB ADMIN — DASHBOARD SCRIPT
-═══════════════════════════════════════ */
-
-const SESSION_KEY = 'myw_admin_auth';
-const DEMOS_KEY   = 'myw_demos';
-const GH_KEY      = 'myw_gh_config';
-
-// Auth guard
-if (sessionStorage.getItem(SESSION_KEY) !== 'true') {
-  window.location.href = 'index.html';
-}
-
-/* ── DEFAULT DEMOS (from existing site) ── */
-const DEFAULT_DEMOS = [
-  { id:'hotel',       title:'LUMIÈRE Luxury Hotel',           slug:'demos/hotel',       category:'Hotel & Resort',    color:'#C9A84C', desc:'Elegant rooms, gold aesthetic, fine dining & rooftop pool showcase.',              status:'live', builtin:true },
-  { id:'gym',         title:'IRONVAULT Gym',                  slug:'demos/gym',         category:'Gym & Fitness',     color:'#e8ff00', desc:'Dark neon-yellow hardcore aesthetic. Membership plans & class timetable.',          status:'live', builtin:true },
-  { id:'restaurant',  title:'EMBER & ASH Restaurant',         slug:'demos/restaurant',  category:'Restaurant & Café', color:'#c0622a', desc:'Warm dark fine-dining theme. Full menu, reservation system & ambiance gallery.',     status:'live', builtin:true },
-  { id:'clinic',      title:'SERENOVA Health',                slug:'demos/clinic',      category:'Clinic & Hospital', color:'#0891b2', desc:'Clean teal-white medical design. Doctor profiles & appointment booking.',            status:'live', builtin:true },
-  { id:'education',   title:'MERIDIAN Institute',             slug:'demos/education',   category:'Education',         color:'#2563eb', desc:'Light editorial education design. Course listings & online admission form.',         status:'live', builtin:true },
-  { id:'real-estate', title:'AURUM Estates',                  slug:'demos/real-estate', category:'Real Estate',       color:'#c9a84c', desc:'Dark gold luxury real estate. Property listings, virtual tours & lead capture.',     status:'live', builtin:true },
-  { id:'business',    title:'PRESTIGE — Universal Business',  slug:'demos/business',    category:'Small Business',    color:'#4f7cff', desc:'One template, 6 live switchable colour themes. Works for any business.',             status:'live', builtin:true },
-];
-
-/* ── STATE ── */
-let demos     = loadDemos();
-let uploadedFiles = [];
-let deletePendingId = null;
-
-function loadDemos() {
-  const saved = localStorage.getItem(DEMOS_KEY);
-  if (!saved) return [...DEFAULT_DEMOS];
-  const parsed = JSON.parse(saved);
-  // Merge: keep builtin demos, add custom on top
-  const customIds = parsed.map(d => d.id);
-  const builtins  = DEFAULT_DEMOS.filter(d => !customIds.includes(d.id));
-  return [...parsed, ...builtins.filter(d => d.builtin)];
-}
-
-function saveDemos() {
-  localStorage.setItem(DEMOS_KEY, JSON.stringify(demos));
-  updateStats();
-}
-
-/* ── VIEW SWITCHING ── */
-const sidebar = document.getElementById('sidebar');
-const sbToggle= document.getElementById('sbToggle');
-const sbOverlay=document.getElementById('sbOverlay');
-
-sbToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('open');
-  sbOverlay.classList.toggle('open');
-});
-sbOverlay.addEventListener('click', () => {
-  sidebar.classList.remove('open');
-  sbOverlay.classList.remove('open');
-});
-
-function switchView(name) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
-  document.querySelector(`[data-view="${name}"]`)?.classList.add('active');
-
-  // Update page title
-  const titles = {
-    overview:'Overview', upload:'Upload Demo',
-    demos:'Manage Demos', github:'GitHub & Deploy'
-  };
-  const subtitles = {
-    overview:'Welcome back, Rahul. Here\'s your portfolio at a glance.',
-    upload:'Add a new website demo to your portfolio.',
-    demos:'View, edit, and manage all your demo websites.',
-    github:'Configure GitHub & Netlify auto-deploy.'
-  };
-  document.querySelector('#pageTitle h2').textContent = titles[name] || name;
-  document.querySelector('#pageTitle p').textContent  = subtitles[name] || '';
-
-  // Close mobile sidebar
-  sidebar.classList.remove('open');
-  sbOverlay.classList.remove('open');
-
-  if (name === 'demos' || name === 'overview') renderTables();
-  if (name === 'github') loadGhConfig();
-}
-
-document.querySelectorAll('.sb-link[data-view]').forEach(btn => {
-  btn.addEventListener('click', () => switchView(btn.dataset.view));
-});
-
-/* ── STATS ── */
-function updateStats() {
-  const liveCount = demos.filter(d => d.status === 'live').length;
-  document.getElementById('statDemoCount').textContent = demos.length;
-  document.getElementById('statLiveCount').textContent = liveCount;
-}
-
-/* ── RENDER TABLES ── */
-function renderTables() {
-  renderTable('overviewTableBody', demos.slice(0, 6));
-  renderTable('demosTableBody', demos);
-  document.getElementById('demosCountLabel').textContent = `${demos.length} demos (${demos.filter(d=>d.status==='live').length} live)`;
-  updateStats();
-}
-
-function renderTable(containerId, list) {
-  const el = document.getElementById(containerId);
-  if (!list.length) {
-    el.innerHTML = `<div class="dt-empty"><i class="fas fa-folder-open"></i><p>No demos yet. <a style="color:var(--acc);cursor:pointer" onclick="switchView('upload')">Upload your first one →</a></p></div>`;
-    return;
-  }
-  el.innerHTML = list.map(d => `
-    <div class="dt-row">
-      <div class="dt-name">
-        <div class="dt-dot" style="background:${d.color}"></div>
-        <div>
-          <div class="dt-title">${d.title}</div>
-          <div class="dt-slug">${d.slug}/</div>
-        </div>
-      </div>
-      <div class="dt-tag-col">
-        <span class="dt-tag" style="color:${d.color};background:${d.color}18;border-color:${d.color}38">${d.category}</span>
-      </div>
-      <div>
-        <span class="dt-status ${d.status}">
-          ${d.status === 'live' ? '● Live' : '○ Draft'}
-        </span>
-      </div>
-      <div class="dt-actions">
-        <a class="dt-act-btn" href="../${d.slug}/index.html" target="_blank"
-           style="background:rgba(108,99,255,.1);color:var(--acc)"
-           title="Preview"><i class="fas fa-eye"></i></a>
-        ${!d.builtin ? `
-          <button class="dt-act-btn" onclick="toggleStatus('${d.id}')"
-            style="background:rgba(67,233,123,.1);color:var(--acc3)"
-            title="Toggle status"><i class="fas fa-toggle-${d.status==='live'?'on':'off'}"></i></button>
-          <button class="dt-act-btn" onclick="confirmDelete('${d.id}')"
-            style="background:rgba(255,101,132,.1);color:var(--acc2)"
-            title="Delete"><i class="fas fa-trash"></i></button>
-        ` : `<span style="font-size:.7rem;color:var(--muted);padding:0 .25rem">built-in</span>`}
-      </div>
-    </div>
-  </div>
-</div>
-
-/* ── TOGGLE STATUS ── */
-function toggleStatus(id) {
-  const demo = demos.find(d => d.id === id);
-  if (!demo) return;
-  demo.status = demo.status === 'live' ? 'draft' : 'live';
-  saveDemos();
-  renderTables();
-  showToast(`"${demo.title}" set to ${demo.status}`, 'info');
-}
-
-/* ── DELETE ── */
-function confirmDelete(id) {
-  const demo = demos.find(d => d.id === id);
-  if (!demo) return;
-  deletePendingId = id;
-  document.getElementById('deleteModalName').textContent = demo.title;
-  document.getElementById('deleteModal').classList.add('open');
-}
-
-document.getElementById('deleteCancelBtn').addEventListener('click', () => {
-  document.getElementById('deleteModal').classList.remove('open');
-  deletePendingId = null;
-});
-
-document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
-  if (!deletePendingId) return;
-  const name = demos.find(d => d.id === deletePendingId)?.title;
-  demos = demos.filter(d => d.id !== deletePendingId);
-  saveDemos();
-  renderTables();
-  document.getElementById('deleteModal').classList.remove('open');
-  deletePendingId = null;
-  showToast(`"${name}" removed from portfolio`, 'success');
-});
-
-/* ── FILE UPLOAD — Folder + File aware ── */
-const dropZone    = document.getElementById('dropZone');
-const folderInput = document.getElementById('folderInput');
-const fileInput   = document.getElementById('fileInput');
-const fileList    = document.getElementById('fileList');
-const metaForm    = document.getElementById('metaForm');
-const uploadActions = document.getElementById('uploadActions');
-
-// Button triggers
-document.getElementById('pickFolderBtn').addEventListener('click', e => { e.stopPropagation(); folderInput.click(); });
-document.getElementById('pickFilesBtn').addEventListener('click',  e => { e.stopPropagation(); fileInput.click(); });
-
-// Folder picker — preserves webkitRelativePath so subfolders work
-folderInput.addEventListener('change', e => {
-  const files = Array.from(e.target.files);
-  // Give each file its relative path as a custom property
-  files.forEach(f => { if (!f._relativePath) f._relativePath = f.webkitRelativePath || f.name; });
-  handleFiles(files);
-  folderInput.value = '';
-});
-
-// Regular file picker
-fileInput.addEventListener('change', e => {
-  const files = Array.from(e.target.files);
-  files.forEach(f => { f._relativePath = f.name; });
-  handleFiles(files);
-  fileInput.value = '';
-});
-
-// Drag-over / drag-leave
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-dropZone.addEventListener('dragleave', e => {
-  if (!dropZone.contains(e.relatedTarget)) dropZone.classList.remove('drag-over');
-});
-
-// DROP — handles both files and entire folders via DataTransferItem API
-dropZone.addEventListener('drop', async e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
-
-  const items = Array.from(e.dataTransfer.items || []);
-  if (!items.length) return;
-
-  showToast('Reading dropped items…', 'info');
-
-  const allFiles = [];
-  for (const item of items) {
-    if (item.kind !== 'file') continue;
-    const entry = item.webkitGetAsEntry ? item.webkitGetAsEntry() : null;
-    if (entry) {
-      const collected = await readEntry(entry, '');
-      allFiles.push(...collected);
-    } else {
-      const f = item.getAsFile();
-      if (f) { f._relativePath = f.name; allFiles.push(f); }
-    }
-  }
-
-  if (allFiles.length) handleFiles(allFiles);
-  else showToast('Could not read dropped items. Try the Pick buttons instead.', 'error');
-});
-
-// Recursively read a FileSystemEntry (file or directory)
-function readEntry(entry, pathPrefix) {
-  return new Promise(resolve => {
-    if (entry.isFile) {
-      entry.file(f => {
-        f._relativePath = pathPrefix ? pathPrefix + '/' + entry.name : entry.name;
-        resolve([f]);
-      }, () => resolve([]));
-    } else if (entry.isDirectory) {
-      const reader = entry.createReader();
-      const results = [];
-      function readBatch() {
-        reader.readEntries(async entries => {
-          if (!entries.length) { resolve(results); return; }
-          for (const child of entries) {
-            const sub = await readEntry(child, pathPrefix ? pathPrefix + '/' + entry.name : entry.name);
-            results.push(...sub);
-          }
-          readBatch(); // directories can return entries in batches
-        }, () => resolve(results));
-      }
-      readBatch();
-    } else {
-      resolve([]);
-    }
-  });
-}
-
-function handleFiles(newFiles) {
-  if (!newFiles.length) return;
-
-  // Strip leading root-folder segment if all files share one (e.g. "isckon/index.html" → "index.html")
-  const paths = newFiles.map(f => f._relativePath || f.name);
-  const topFolders = [...new Set(paths.map(p => p.split('/')[0]))];
-  let stripPrefix = '';
-  if (topFolders.length === 1 && paths.some(p => p.includes('/'))) {
-    stripPrefix = topFolders[0] + '/';
-  }
-
-  newFiles.forEach(f => {
-    const rel = (f._relativePath || f.name).replace(/^\/+/, '');
-    f._cleanPath = stripPrefix && rel.startsWith(stripPrefix)
-      ? rel.slice(stripPrefix.length) : rel;
-  });
-
-  // Merge — avoid exact duplicate clean paths
-  const existingPaths = new Set(uploadedFiles.map(f => f._cleanPath));
-  const toAdd = newFiles.filter(f => f._cleanPath && !existingPaths.has(f._cleanPath));
-  uploadedFiles = [...uploadedFiles, ...toAdd];
-
-  renderFileList();
-  metaForm.style.display = 'grid';
-  uploadActions.style.display = 'flex';
-
-  // Auto-suggest title/slug from root folder name or first html file
-  if (!document.getElementById('mTitle').value) {
-    const rootFolder = stripPrefix ? stripPrefix.replace(/\/$/, '') : '';
-    const htmlFile   = newFiles.find(f => f._cleanPath === 'index.html' || f.name === 'index.html');
-    let suggested = rootFolder || (htmlFile ? '' : (newFiles[0]?.name || ''));
-
-    if (suggested) {
-      const nice = suggested.replace(/[_-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-      document.getElementById('mTitle').value = nice;
-      document.getElementById('mSlug').value  = 'demos/' + suggested.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-    }
-  }
-}
-
-function renderFileList() {
-  if (!uploadedFiles.length) { fileList.innerHTML = ''; return; }
-
-  // Group by folder
-  const groups = {};
-  uploadedFiles.forEach((f, i) => {
-    const parts = (f._cleanPath || f.name).split('/');
-    const folder = parts.length > 1 ? parts[0] : '(root)';
-    if (!groups[folder]) groups[folder] = [];
-    groups[folder].push({ f, i });
-  });
-
-  let html = '';
-  for (const [folder, items] of Object.entries(groups)) {
-    if (folder !== '(root)') {
-      html += `<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:.3rem 0 .1rem;margin-top:.4rem;">
-        <i class="fas fa-folder" style="color:var(--acc);margin-right:.35rem;font-size:.65rem"></i>${folder}/
-      </div>`;
-    }
-    items.forEach(({ f, i }) => {
-      const name = (f._cleanPath || f.name).split('/').pop();
-      html += `<div class="file-item">
-        <div class="file-icon"><i class="fas fa-${getFileIcon(name)}"></i></div>
-        <span class="file-name">${f._cleanPath || f.name}</span>
-        <span class="file-size">${formatSize(f.size)}</span>
-        <button class="file-remove" onclick="removeFile(${i})" title="Remove"><i class="fas fa-xmark"></i></button>
-      </div>`;
-    });
-  }
-  fileList.innerHTML = html;
-}
-
-function removeFile(i) {
-  uploadedFiles.splice(i, 1);
-  renderFileList();
-  if (!uploadedFiles.length) {
-    metaForm.style.display = 'none';
-    uploadActions.style.display = 'none';
-  }
-}
-
-function getFileIcon(name) {
-  if (!name) return 'file';
-  if (name.endsWith('.html')) return 'code';
-  if (name.endsWith('.css'))  return 'palette';
-  if (name.endsWith('.js'))   return 'bolt';
-  if (/\.(jpg|jpeg|png|gif|svg|webp|ico)$/i.test(name)) return 'image';
-  if (/\.(woff|woff2|ttf|eot)$/i.test(name)) return 'font';
-  if (name.endsWith('.json')) return 'brackets-curly';
-  return 'file';
-}
-
-function formatSize(bytes) {
-  if (!bytes || bytes === 0) return '—';
-  if (bytes < 1024) return bytes + 'B';
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + 'KB';
-  return (bytes/1024/1024).toFixed(1) + 'MB';
-}
-
-// Sync color pickers
-document.getElementById('mColor').addEventListener('input', e => {
-  document.getElementById('mColorHex').value = e.target.value;
-});
-document.getElementById('mColorHex').addEventListener('input', e => {
-  if (/^#[0-9a-fA-F]{6}$/.test(e.target.value)) document.getElementById('mColor').value = e.target.value;
-});
-
-// Auto-slug from title
-document.getElementById('mTitle').addEventListener('input', e => {
-  const existing = document.getElementById('mSlug').value;
-  const autoSlug = 'demos/' + e.target.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  if (!existing || existing.startsWith('demos/')) {
-    document.getElementById('mSlug').value = autoSlug;
-  }
-});
-
-/* ── PUBLISH ── */
-document.getElementById('publishBtn').addEventListener('click', () => publishDemo(false));
-document.getElementById('saveDraftBtn').addEventListener('click', () => publishDemo(true));
-
-async function publishDemo(asDraft) {
-  const title    = document.getElementById('mTitle').value.trim();
-  const slug     = document.getElementById('mSlug').value.trim().replace(/\/+$/, '');
-  const category = document.getElementById('mCategory').value;
-  const color    = document.getElementById('mColorHex').value || '#6c63ff';
-  const desc     = document.getElementById('mDesc').value.trim();
-  const status   = asDraft ? 'draft' : (document.getElementById('mStatus').value || 'live');
-
-  if (!title || !slug || !category || !desc) {
-    showToast('Please fill in all required fields.', 'error'); return;
-  }
-  if (!uploadedFiles.length) {
-    showToast('Please upload at least one file.', 'error'); return;
-  }
-
-  const ghConfig = loadGhConfig();
-  const hasGh    = ghConfig && ghConfig.token && ghConfig.user && ghConfig.repo;
-
-  // Build demo object
-  const newDemo = {
-    id: slug.split('/').pop() + '-' + Date.now(),
-    title, slug, category, color, desc, status,
-    tags: document.getElementById('mTags').value.split(',').map(t=>t.trim()).filter(Boolean),
-    createdAt: new Date().toISOString(),
-    builtin: false
-  };
-
-  if (!asDraft && hasGh) {
-    // Push files to GitHub
-    await pushToGitHub(ghConfig, slug, uploadedFiles, newDemo);
-  } else {
-    // Save locally as draft
-    demos.unshift(newDemo);
-    saveDemos();
-    showToast(asDraft ? `"${title}" saved as draft.` : `"${title}" added! Configure GitHub to auto-deploy.`, 'success');
-    resetUploadForm();
-    switchView('demos');
-  }
-}
-
-async function pushToGitHub(cfg, slug, files, demo) {
-  const progWrap = document.getElementById('progressWrap');
-  const progBar  = document.getElementById('progressBar');
-  const progPct  = document.getElementById('progressPct');
-  const progLbl  = document.getElementById('progressLabel');
-  const publishBtn = document.getElementById('publishBtn');
-
-  progWrap.classList.add('show');
-  publishBtn.disabled = true;
-
-  const total = files.length + 1; // +1 for demos.json update
-  let done = 0;
-
-  function setProgress(label, pct) {
-    progLbl.textContent = label;
-    progPct.textContent = pct + '%';
-    progBar.style.width = pct + '%';
-  }
-
-  try {
-    const base = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents`;
-    const headers = {
-      'Authorization': `Bearer ${cfg.token}`,
-      'Content-Type':  'application/json',
-      'Accept':        'application/vnd.github.v3+json'
-    };
-
-    for (const file of files) {
-      setProgress(`Uploading ${file.name}…`, Math.round((done / total) * 80));
-      const content = await readFileAsBase64(file);
-      // Use _cleanPath to preserve subfolder structure (e.g. css/style.css)
-      const relativePath = file._cleanPath || file.name;
-      const path    = `${slug}/${relativePath}`;
-
-      // Check if file exists (to get SHA for update)
-      let sha = null;
-      try {
-        const check = await fetch(`${base}/${path}`, { headers });
-        if (check.ok) { const j = await check.json(); sha = j.sha; }
-      } catch(e) {}
-
-      const body = { message: `Upload ${path}`, content };
-      if (sha) body.sha = sha;
-
-      const res = await fetch(`${base}/${path}`, {
-        method:'PUT', headers, body: JSON.stringify(body)
-      });
-      if (!res.ok) throw new Error(`Failed to upload ${file.name}: ${await res.text()}`);
-      done++;
-    }
-
-    // Update demos.json
-    setProgress('Updating demos registry…', 85);
-    demos.unshift(demo);
-
-    const demosJson   = JSON.stringify(demos.filter(d => !d.builtin), null, 2);
-    const demosB64    = btoa(unescape(encodeURIComponent(demosJson)));
-    let demosSha = null;
-    try {
-      const r = await fetch(`${base}/demos.json`, { headers });
-      if (r.ok) { const j = await r.json(); demosSha = j.sha; }
-    } catch(e) {}
-
-    const dBody = { message:'Update demos.json', content: demosB64 };
-    if (demosSha) dBody.sha = demosSha;
-    await fetch(`${base}/demos.json`, { method:'PUT', headers, body: JSON.stringify(dBody) });
-
-    setProgress('Finalising…', 95);
-    saveDemos();
-
-    setTimeout(() => {
-      setProgress('Published! Netlify deploying…', 100);
-      setTimeout(() => {
-        progWrap.classList.remove('show');
-        publishBtn.disabled = false;
-        showToast(`🚀 "${demo.title}" published! Live in ~30 seconds.`, 'success');
-        resetUploadForm();
-        switchView('demos');
-      }, 1200);
-    }, 600);
-
-  } catch(err) {
-    progWrap.classList.remove('show');
-    publishBtn.disabled = false;
-    showToast('GitHub error: ' + err.message, 'error');
-    console.error(err);
-  }
-}
-
-function readFileAsBase64(file) {
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload  = () => res(r.result.split(',')[1]);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
-
-function resetUploadForm() {
-  uploadedFiles = [];
-  fileList.innerHTML = '';
-  metaForm.style.display = 'none';
-  document.getElementById('uploadActions').style.display = 'none';
-  document.getElementById('mTitle').value = '';
-  document.getElementById('mSlug').value  = '';
-  document.getElementById('mCategory').value = '';
-  document.getElementById('mDesc').value  = '';
-  document.getElementById('mTags').value  = '';
-  document.getElementById('progressWrap').classList.remove('show');
-  document.getElementById('fileInput').value = '';
-  document.getElementById('folderInput').value = '';
-}
-
-document.getElementById('clearUploadBtn').addEventListener('click', resetUploadForm);
-
-/* ── GITHUB CONFIG ── */
-function loadGhConfig() {
-  const s = localStorage.getItem(GH_KEY);
-  return s ? JSON.parse(s) : null;
-}
-
-
-
-function loadGhConfigIntoForm() {
-  const cfg = loadGhConfig();
-  if (!cfg) return;
-  if (cfg.user)   document.getElementById('ghUser').value   = cfg.user;
-  if (cfg.repo)   document.getElementById('ghRepo').value   = cfg.repo;
-  if (cfg.branch) document.getElementById('ghBranch').value = cfg.branch;
-  if (cfg.token)  document.getElementById('ghToken').value  = cfg.token;
-}
-
-document.getElementById('ghSaveBtn').addEventListener('click', () => {
-  const cfg = {
-    user:   document.getElementById('ghUser').value.trim(),
-    repo:   document.getElementById('ghRepo').value.trim(),
-    branch: document.getElementById('ghBranch').value.trim() || 'main',
-    token:  document.getElementById('ghToken').value.trim()
-  };
-  if (!cfg.user || !cfg.repo || !cfg.token) {
-    showGhStatus('Please fill in username, repo, and token.', 'err'); return;
-  }
-  localStorage.setItem(GH_KEY, JSON.stringify(cfg));
-  showGhStatus('✓ Configuration saved!', 'ok');
-  showToast('GitHub config saved.', 'success');
-});
-
-document.getElementById('ghTestBtn').addEventListener('click', async () => {
-  const cfg = loadGhConfig();
-  if (!cfg) { showGhStatus('Save your config first.', 'err'); return; }
-  showGhStatus('Testing connection…', 'info');
-  try {
-    const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}`, {
-      headers:{ 'Authorization': `Bearer ${cfg.token}`, 'Accept':'application/vnd.github.v3+json' }
-    });
-    if (res.ok) {
-      const data = await res.json();
-      showGhStatus(`✓ Connected! Repo: ${data.full_name} (${data.visibility})`, 'ok');
-      showToast('GitHub connected ✓', 'success');
-    } else {
-      const e = await res.json();
-      showGhStatus('✗ ' + (e.message || 'Connection failed'), 'err');
-    }
-  } catch(err) {
-    showGhStatus('✗ Network error: ' + err.message, 'err');
-  }
-});
-
-function showGhStatus(msg, type) {
-  const el = document.getElementById('ghStatus');
-  el.style.display = 'flex';
-  el.className = 'gh-status ' + type;
-  el.innerHTML = `<i class="fas fa-${type==='ok'?'check-circle':type==='err'?'circle-xmark':'circle-info'}"></i> ${msg}`;
-}
-
-/* ── TOAST ── */
-function showToast(msg, type = 'info') {
-  const stack = document.getElementById('toastStack');
-  const t = document.createElement('div');
-  const icons = { success:'circle-check', error:'circle-xmark', info:'circle-info' };
-  t.className = `toast ${type}`;
-  t.innerHTML = `<i class="fas fa-${icons[type]||'circle-info'}"></i><span>${msg}</span>`;
-  stack.appendChild(t);
-  requestAnimationFrame(() => { requestAnimationFrame(() => t.classList.add('show')); });
-  setTimeout(() => {
-    t.classList.add('hide');
-    setTimeout(() => t.remove(), 350);
-  }, 4000);
-}
-
-/* ── LOGOUT ── */
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem(SESSION_KEY);
-  window.location.href = 'index.html';
-});
-
-/* ── INIT ── */
-renderTables();
-updateStats();
-
-// Load GH config into form if on that view
-document.querySelector('[data-view="github"]').addEventListener('click', () => {
-  setTimeout(loadGhConfigIntoForm, 50);
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="dashboard.js"></script>
 </body>
 </html>

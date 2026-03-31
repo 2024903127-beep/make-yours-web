@@ -361,8 +361,15 @@ window._myw_loadDemos = async function (containerId, limit = 0) {
   
   function h2r(h) {
     let r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);
-    return r ? `${parseInt(r[1], 16)},${parseInt(r[2], 16)},${parseInt(r[3], 16)}` : null;
+    return r ? `${parseInt(r[1], 16)},${parseInt(r[2], 16)},${parseInt(r[3], 16)}` : "124,58,237";
   }
+
+  const FALLBACK_DEMOS = [
+    { id:'f-hotel', title:'LUMIÈRE Luxury Hotel', slug:'demos/hotel', category:'Hotel & Resort', color:'#C9A84C', desc:'Elegant rooms, gold aesthetic, fine dining showcase.', status:'live' },
+    { id:'f-gym', title:'IRONVAULT Gym', slug:'demos/gym', category:'Gym & Fitness', color:'#e8ff00', desc:'Dark neon-yellow hardcore aesthetic. Membership plans.', status:'live' },
+    { id:'f-rest', title:'EMBER & ASH Restaurant', slug:'demos/restaurant', category:'Restaurant & Café', color:'#c0622a', desc:'Warm dark fine-dining theme. Full menu & reservation.', status:'live' },
+    { id:'f-clin', title:'SERENOVA Health', slug:'demos/clinic', category:'Clinic & Hospital', color:'#0891b2', desc:'Clean teal-white medical design. Appointment booking.', status:'live' }
+  ];
 
   function createCard(d) {
     const hex = d.color || '#7c3aed';
@@ -399,18 +406,26 @@ window._myw_loadDemos = async function (containerId, limit = 0) {
 
   try {
     const res = await fetch('demos.json');
+    if (!res.ok) throw new Error('Fetch failed');
     const responseData = await res.json();
     if (Array.isArray(responseData)) {
       container.innerHTML = '';
       let data = responseData.filter(d => d.status === 'live');
       if (limit > 0) data = data.slice(0, limit);
       data.forEach(d => container.appendChild(createCard(d)));
-    }
+    } else { throw new Error('Invalid format'); }
   } catch (e) {
+    console.warn('Portfolio fetch error, trying local cache...', e);
     const s = localStorage.getItem('myw_demos');
     if (s) {
       container.innerHTML = '';
       let data = JSON.parse(s).filter(d => d.status === 'live');
+      if (limit > 0) data = data.slice(0, limit);
+      data.forEach(d => container.appendChild(createCard(d)));
+    } else {
+      console.warn('Local cache empty, using built-in fallback.');
+      container.innerHTML = '';
+      let data = FALLBACK_DEMOS;
       if (limit > 0) data = data.slice(0, limit);
       data.forEach(d => container.appendChild(createCard(d)));
     }
